@@ -1,0 +1,109 @@
+version: "3.7"
+services:
+    #APP SERVICES
+    app:
+        build:
+            context: .
+            dockerfile: ./docker/Dockerfile
+        image: app
+        container_name: crm_hadejun
+        restart: unless-stopped
+        tty: true
+        environment:
+            SERVICE_NAME: crm_hadejun
+            SERVICE_TAGS: prod
+        working_dir: /var/www/html
+        volumes:
+            - ./:/var/www/html
+            #- /var/www/html/vendor
+        extra_hosts:
+            - "internal.host:host-gateway"
+        networks:
+            - net
+
+    #NGINX SERVICES
+    nginx:
+        image: nginx:alpine
+        container_name: crm_hadejun_http
+        restart: on-failure
+        tty: true
+        ports:
+            - "8080:80"
+            # - "80:80"
+            # - "443:443"
+        volumes:
+            - ./:/var/www/html
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+        depends_on:
+            - app
+        networks:
+            - net
+
+    #DBPOSTGRES
+    postgres:
+        image: postgres:9.5-alpine
+        container_name: postgres
+        restart: unless-stopped
+        tty: true
+        volumes:
+            - "./sourcefiles/postgres:/var/lib/postgresql/data"
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=postgres
+        ports:
+            - "5432:5432"
+        networks:
+            - net
+
+    # RABBITMQ
+    # rabbitmq:
+    #     container_name: lite_mcu_rabbitmq
+    #     image: lucifer8591/rabbitmq-server:3.7.17
+    #     restart: on-failure
+    #     ports:
+    #         - "5672:5672"
+    #         - "15672:15672"
+    #     environment:
+    #         - RABBITMQ_DEFAULT_USER=admin
+    #         - RABBITMQ_DEFAULT_PASS=admin123)
+    #     networks:
+    #         - net
+
+    # WORKER SUPERVISOR
+    # supervisor:
+    #     container_name: lite_mcu_supervisor
+    #     image: app
+    #     restart: on-failure
+    #     environment:
+    #         - APP_ROOT=${APP_ROOT}
+    #         - QUEUE_DRIVER=${QUEUE_CONNECTION}
+    #         - OPTIONS=${QUEUE_OPTIONS}
+    #         - NUM_PROCS=${NUM_PROCS}
+    #     depends_on:
+    #         - app
+    #         - nginx
+    #     volumes:
+    #         - ./:/var/www/html
+    #     networks:
+    #         - net
+    #     command: supervisord
+
+    # CRON SERVICES
+    # cron:
+    #     build:
+    #         context: .
+    #         dockerfile: ./docker-config/crontab/cron.dockerfile
+    #     container_name: lite_mcu_cron
+    #     depends_on:
+    #         - app
+    #     volumes:
+    #         - ./:/var/www/html
+    #     networks:
+    #         - net
+
+#DOCKER NETWORKS
+networks:
+    net:
+        driver: bridge
