@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             // ConfigUserSeeder::class,
             // HistoricalFbSeeder::class,
             // CallCenterSeeder::class,
-            DepartmentsTableSeeder::class
+            DepartmentsTableSeeder::class,
+            ConversationSeeder::class
         ]);
     }
 }
