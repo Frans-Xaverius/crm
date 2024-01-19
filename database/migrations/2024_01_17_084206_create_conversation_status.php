@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('conversation_status', function (Blueprint $table) {
             $table->id();
             $table->text('status');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('customer', function (Blueprint $table) {
+        Schema::create('wa_bot', function (Blueprint $table) {
             $table->id();
-            $table->text('no_telp');
-            $table->text('nama');
-            $table->integer('is_bot')->default(1);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->integer('customer_id');
+            $table->integer('curr_level')->default(0);
+            $table->integer('curr_option')->default(0);
+            $table->timestamps();
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer');
+        Schema::dropIfExists('wa_bot');
     }
 };

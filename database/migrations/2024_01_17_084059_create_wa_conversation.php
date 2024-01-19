@@ -18,7 +18,8 @@ return new class extends Migration
             $table->longtext('identifier');
             $table->integer('customer_id');
             $table->integer('status');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

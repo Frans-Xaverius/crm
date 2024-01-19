@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             // HistoricalFbSeeder::class,
             // CallCenterSeeder::class,
             DepartmentsTableSeeder::class,
-            ConversationSeeder::class
+            ConversationSeeder::class,
+            PertanyaanSeeder::class
         ]);
     }
 }

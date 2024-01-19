@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer('to');
             $table->longtext('content');
             $table->integer('wa_conversation_id');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
