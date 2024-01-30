@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('customer_id');
             $table->integer('curr_level')->default(0);
             $table->integer('curr_option')->default(0);
+            $table->integer('curr_parent')->default(0);
+            $table->integer('has_intro')->default(0);
             $table->timestamps();
         });
     }

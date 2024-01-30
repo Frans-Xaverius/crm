@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('level');
             $table->integer('parent_id')->nullable();
             $table->longtext('content');
+            $table->longtext('jawaban')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
