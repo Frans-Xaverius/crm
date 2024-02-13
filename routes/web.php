@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PertanyaanController as Pertanyaan;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,3 +96,9 @@ Route::post('/api/message/agent', 'App\Http\Controllers\MessageApiController@ass
 Route::get('/api/customerMonitoring', 'App\Http\Controllers\CustomerMonitoringApiController@index')->name('api.cm');
 Route::get('/api/report', 'App\Http\Controllers\ReportApiController@index')->name('api.report');
 Route::get('/api/eskalasi', 'App\Http\Controllers\MessageApiController@eskalasi')->name('api.eskalasi');
+
+// -- //
+
+Route::prefix('pertanyaan')->group(function(){
+	Route::get('/', [Pertanyaan::class, 'index'])->name('pertanyaan');
+});
