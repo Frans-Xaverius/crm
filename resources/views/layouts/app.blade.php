@@ -71,6 +71,7 @@
             border-radius: 10px;
         }
     </style>
+    @yield('add-style')
 </head>
 
 <body class="{{ $class ?? '' }}">

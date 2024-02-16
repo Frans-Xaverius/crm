@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PertanyaanController as Pertanyaan;
+use App\Http\Controllers\Media\WhatsappController as Whatsapp;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,3 +103,9 @@ Route::get('/api/eskalasi', 'App\Http\Controllers\MessageApiController@eskalasi'
 Route::prefix('pertanyaan')->group(function(){
 	Route::get('/', [Pertanyaan::class, 'index'])->name('pertanyaan');
 });
+
+Route::prefix('media')->group((function(){
+	Route::prefix('whatsapp')->group((function(){
+		Route::get('/', [Whatsapp::class, 'index'])->name('media.whatsapp');
+	}));
+}));
