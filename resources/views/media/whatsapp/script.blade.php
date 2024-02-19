@@ -42,11 +42,14 @@
     		}
     	});
 
+        $('#room-detail').animate({scrollTop: $('#room-detail').height()}, 1000);
 
     });
 
     $(document).ready(function(){
+
         $('.list-customer')[0].click();
+
     });
 
     $('.do-send').on('click', function(){
