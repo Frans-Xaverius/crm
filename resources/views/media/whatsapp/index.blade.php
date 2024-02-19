@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="container-fluid pb-1 pt-3 pt-md-7">
-    <div class="card mt-3 mb-5">
+    <div class="card mt-3 mb-5 p-2">
         <div class="card-body">
             <div class="row">
 
@@ -16,47 +16,31 @@
                         <input type="text" class="form-control form-control-alternative" placeholder="Search chat" aria-label="Recipient's username" aria-describedby="basic-addon2" id="search-chat">
                     </div>
                     <div data-mdb-perfect-scrollbar="true" style="position: relative; height: calc(100vh - 287px);overflow-y: scroll;">
-                        <ul class="list-unstyled myChat" style="width: 100%" id="room">
-                            @for($i=0; $i<10; $i++)
-                            <li class="p-2 border-bottom">
-                                <a class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
+                        <div class="list-group" style="width: 100%" id="room">
+                            @foreach ($customer as $c)
+                                <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" attr-id="{{ $c->id }}">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row">
+                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
+                                            <div class="pt-1">
+                                                <p class="fw-bold mb-0 font-weight-bold">
+                                                    {{ $c->no_telp }}
+                                                </p>
+                                                <p class="small text-muted">
+                                                    {{ $c->from->content }}
+                                                </p>
+                                            </div>
+                                        </div>
                                         <div class="pt-1">
-                                            <p class="fw-bold mb-0 font-weight-bold">
-                                                John Doe
-                                                <span class="badge badge-pill badge-danger">1</span>
-                                            </p>
-                                            <p class="small text-muted">Hello, Are you there? Lorem dolor sit...</p>
+                                            <p class="small text-muted mb-1"><?php echo date('d/m/Y'); ?></p>
+                                            <span class="badge float-end mt-5 text-danger" style="border: red solid; border-width: thin;">
+                                                Unsolved
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="pt-1">
-                                        <p class="small text-muted mb-1"><?php echo date('d/m/Y'); ?></p>
-                                        <span class="badge float-end mt-5 text-danger" style="border: red solid; border-width: thin;">
-                                            Unsolved
-                                        </span>
-                                    </div>
                                 </a>
-                            </li>
-                            <li class="p-2 border-bottom" style="background-color: #eee;">
-                                <a class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-1.webp" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
-                                        <div class="pt-1">
-                                            <p class="fw-bold mb-0">Danny Smith</p>
-                                            <p class="small text-muted">Lorem ipsum dolor sit.</p>
-                                        </div>
-                                    </div>
-                                    <div class="pt-1">
-                                        <p class="small text-muted mb-1">5 mins ago</p>
-                                        <span class="badge float-end mt-5 text-success" style="border: green solid; border-width: thin;">
-                                            Solved
-                                        </span>
-                                    </div>
-                                </a>
-                            </li>
-                            @endfor
-                        </ul>
+                            @endforeach 
+                        </div>
                     </div>
                 </div>
 
@@ -73,36 +57,7 @@
                         </div>
                     </div>
                     <div class="pt-3 pe-3 pr-3 mt-3" style="height: calc(100vh - 287px);overflow-y: scroll;" id="room-detail">
-                        @for($i=0; $i<10; $i++)
-                        <div class="d-flex flex-row justify-content-start">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-1.webp" alt="avatar 1" style="width: 45px; height: 100%;">
-                            <div>
-                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                                </p>
-                                <p class="small ms-3 mb-3 rounded-3 text-muted float-end">12:00 PM | Aug 13</p>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row justify-content-end">
-                            <div>
-                                <p class="small p-2 me-3 mb-1 rounded-3 bg-primary">
-                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
-                                <p class="small me-3 mb-3 rounded-3 text-muted">12:00 PM | Aug 13</p>
-                            </div>
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="avatar 1" style="width: 45px; height: 100%;">
-                        </div>
-                        @endfor
-                    </div>
-                    <div class="text-muted d-flex justify-content-end align-items-center mt-3">
-                        <textarea class="form-control form-control-lg" placeholder="Type a message..." id="input-message"> </textarea>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mt-1 mb-2">
-                        <div class="pt-1 d-flex">
-                            <button class="ms-4 btn btn-active" id="btn-sent" disabled>
-                                Sent &nbsp; <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
+                        
                     </div>
                 </div>
 
@@ -132,6 +87,16 @@
                     </div>
                 </div>
 
+            </div>
+            <div class="text-muted d-flex justify-content-end align-items-center mt-5">
+                <textarea class="form-control form-control-lg" placeholder="Type a message..." id="input-message" rows="3"></textarea>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-1 mb-2">
+                <div class="pt-1 d-flex">
+                    <button class="ms-4 btn btn-active" id="btn-sent" disabled>
+                        Sent &nbsp; <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

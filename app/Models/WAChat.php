@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class WAChat extends Model
 {
     use HasFactory;
+    protected $table = 'wa_chat';
 }
