@@ -1,0 +1,1 @@
+ALTER TABLE `customer` ADD `is_admin` INT NOT NULL DEFAULT '0' AFTER `is_bot`;

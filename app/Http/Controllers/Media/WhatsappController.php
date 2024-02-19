@@ -12,7 +12,9 @@ class WhatsappController extends Controller
 {
     public function index () {
 
-        $customer = Customer::all();
+        $customer = Customer::where([
+            'is_admin' => 0
+        ])->get();
 
         return view ('media.whatsapp.index', compact('customer'));
     }

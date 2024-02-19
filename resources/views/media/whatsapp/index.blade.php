@@ -18,7 +18,7 @@
                     <div data-mdb-perfect-scrollbar="true" style="position: relative; height: calc(100vh - 287px);overflow-y: scroll;">
                         <div class="list-group" style="width: 100%" id="room">
                             @foreach ($customer as $c)
-                                <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" attr-id="{{ $c->id }}">
+                                <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" attr-id="{{ $c->id }}" attr-num="{{ $c->no_telp }}">
                                     <div class="d-flex justify-content-between">
                                         <div class="d-flex flex-row">
                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
@@ -34,7 +34,7 @@
                                         <div class="pt-1">
                                             <p class="small text-muted mb-1"><?php echo date('d/m/Y'); ?></p>
                                             <span class="badge float-end mt-5 text-danger" style="border: red solid; border-width: thin;">
-                                                Unsolved
+                                                Belum Selesai
                                             </span>
                                         </div>
                                     </div>
@@ -52,8 +52,8 @@
                             </div>
                         </div>
                         <div class="text-center mt-2" id="btnIsSolved">
-                            <button class="btn btn-sm btn-success" id="btnSolved">Solved</button>
-                            <button class="btn btn-sm btn-danger">Unsolved</button>
+                            <button class="btn btn-sm btn-success" id="btnSolved">Selesai</button>
+                            <button class="btn btn-sm btn-danger">Belum Selesai</button>
                         </div>
                     </div>
                     <div class="pt-3 pe-3 pr-3 mt-3" style="height: calc(100vh - 287px);overflow-y: scroll;" id="room-detail">
@@ -89,12 +89,12 @@
 
             </div>
             <div class="text-muted d-flex justify-content-end align-items-center mt-5">
-                <textarea class="form-control form-control-lg" placeholder="Type a message..." id="input-message" rows="3"></textarea>
+                <textarea class="form-control form-control-lg content-msg" placeholder="Tulis pesan..." rows="3"></textarea>
             </div>
             <div class="d-flex justify-content-between align-items-center mt-1 mb-2">
                 <div class="pt-1 d-flex">
-                    <button class="ms-4 btn btn-active" id="btn-sent" disabled>
-                        Sent &nbsp; <i class="fas fa-paper-plane"></i>
+                    <button class="ms-4 btn btn-active do-send">
+                        Kirim &nbsp; <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
             </div>

@@ -1,8 +1,11 @@
 <script type="text/javascript">
 
+    let currNum = '';
+
     $('.list-customer').on('click', function(){
 
     	let id = $(this).attr('attr-id');
+        currNum = $(this).attr('attr-num').split('@')[0];
         $('#room-detail').html('');
 
     	$.ajax({
@@ -37,10 +40,29 @@
                 });
     			
     		}
-    	})
+    	});
+
+
     });
 
-    $('.list-customer')[0].click();
+    $(document).ready(function(){
+        $('.list-customer')[0].click();
+    });
+
+    $('.do-send').on('click', function(){
+
+        let content = $('.content-msg').val();
+        let mainUrl = `<?= $_ENV['URL_WA'] ?>`;
+
+        $.ajax({
+            method: "GET",
+            url: `${mainUrl}api?num=${currNum}&msg=${content}`,
+            success: function(res) {
+                console.log(res);
+            }
+        });
+
+    });
 
 
 </script>
