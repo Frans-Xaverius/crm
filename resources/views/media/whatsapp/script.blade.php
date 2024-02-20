@@ -1,3 +1,4 @@
+@vite('resources/js/app.js')
 <script type="text/javascript">
 
     let currNum = '';
@@ -47,6 +48,10 @@
     });
 
     $(document).ready(function(){
+
+        Echo.channel('message-channel').listen('TriggerMessage', (e) => {
+            console.log(e);
+        });
 
         $('.list-customer')[0].click();
 
