@@ -53,6 +53,10 @@
             console.log("Hai");
         });
 
+        Echo.channel('home').listen('NewEvent', (e) => {
+            console.log("jel");
+        });
+
         $('.list-customer')[0].click();
 
     });
