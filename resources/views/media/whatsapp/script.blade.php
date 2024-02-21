@@ -1,6 +1,23 @@
 @vite('resources/js/app.js')
 <script type="text/javascript">
 
+    document.addEventListener("DOMContentLoaded", function(event){
+
+        Echo.channel('triggerChannel').listen('TriggerEvent', (e) => {
+            console.log(e);
+        });
+
+        Echo.channel('home').listen('NewEvent', (e) => {
+            console.log(e);
+        });
+
+    });
+
+</script>
+
+
+<script type="text/javascript">
+
     let currNum = '';
 
     $('.list-customer').on('click', function(){
@@ -48,14 +65,6 @@
     });
 
     $(document).ready(function(){
-
-        Echo.channel('triggerChannel').listen('TriggerEvent', (e) => {
-            console.log("Hai");
-        });
-
-        Echo.channel('home').listen('NewEvent', (e) => {
-            console.log("jel");
-        });
 
         $('.list-customer')[0].click();
 
