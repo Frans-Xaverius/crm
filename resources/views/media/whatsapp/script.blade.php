@@ -49,8 +49,8 @@
 
     $(document).ready(function(){
 
-        Echo.channel('message-channel').listen('TriggerMessage', (e) => {
-            console.log(e);
+        Echo.channel('triggerChannel').listen('TriggerEvent', (e) => {
+            console.log("Hai");
         });
 
         $('.list-customer')[0].click();

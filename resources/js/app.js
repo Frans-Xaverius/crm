@@ -5,9 +5,9 @@
  */
 
 import './bootstrap';
-import vue from 'vue';
+// import vue from 'vue';
 
-window.Vue = vue;
+// window.Vue = vue;
 
 /**
  * The following block of code may be used to automatically register your
@@ -32,4 +32,4 @@ window.Vue = vue;
 //     el: '#app',
 // });
 
-const app = new Vue();
+// const app = new Vue();

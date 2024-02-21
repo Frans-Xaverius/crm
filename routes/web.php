@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PertanyaanController as Pertanyaan;
 use App\Http\Controllers\Media\WhatsappController as Whatsapp;
-use App\Events\TriggerMessage;
+use App\Events\TriggerEvent;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,5 +113,5 @@ Route::prefix('media')->group((function(){
 }));
 
 Route::get('/trigger', function(){
-	broadcast(new TriggerMessage());
+	broadcast(new TriggerEvent('Test123'));
 });
