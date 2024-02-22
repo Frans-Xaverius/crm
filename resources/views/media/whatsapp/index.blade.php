@@ -27,7 +27,7 @@
                                                     {{ $c->no_telp }}
                                                 </p>
                                                 <p class="small text-muted">
-                                                    {{ $c->from->content }}
+                                                    {{ ($c->from == null) ? '' : $c->from->content }}
                                                 </p>
                                             </div>
                                         </div>
