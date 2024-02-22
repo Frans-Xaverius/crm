@@ -53,7 +53,18 @@
 
         Echo.channel('message-channel')
             .listen('MessageEvent', (e) => {
-                console.log(e);
+                $('#room-detail').append(
+                        `<div class="d-flex flex-row justify-content-left">
+                            <div>
+                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
+                                    ${e.content}
+                                </p>
+                                <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
+                                    00:00
+                                </p>
+                            </div>
+                        </div>`
+                );
             });
 
     });

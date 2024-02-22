@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\WAChat;
 use App\Models\Customer;
+use App\Events\MessageEvent;
 
 class WhatsappController extends Controller
 {
@@ -29,5 +30,14 @@ class WhatsappController extends Controller
         ])->orderBy('created_at', 'ASC')->get();
 
         echo json_encode($data);
+    }
+
+    public function trigger (Request $request) {
+
+        $content = $request->get('message');
+        $event = new MessageEvent($content);
+
+        broadcast($event);
+
     }
 }
