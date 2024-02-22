@@ -110,3 +110,7 @@ Route::prefix('media')->group((function(){
 		Route::get('/riwayat', [Whatsapp::class, 'riwayat'])->name('media.whatsapp.riwayat');
 	}));
 }));
+
+Route::get('/trigger', function(){
+	broadcast(new \App\Events\MessageEvent());
+});
