@@ -78,7 +78,7 @@
             method: "GET",
             url: `${mainUrl}api?num=${currNum}&msg=${content}`,
             success: function(res) {
-                console.log(res);
+                
             }
         });
 
