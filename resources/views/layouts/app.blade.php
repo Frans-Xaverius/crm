@@ -18,11 +18,49 @@
     <!-- Icons -->
     <link href="{{ asset('argon') }}/vendor/nucleo/css/nucleo.css" rel="stylesheet">
     <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+    <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Argon CSS -->
     <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css">
 
     <link type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"> </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        
+        const confLanguage = {
+            paginate: {
+                next: '&#8594;',
+                previous: '&#8592;'
+            },
+            emptyTable: "Data tidak ditemukan",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ baris data",
+            infoEmpty: "Menampilkan 0 sampai 0 dari 0 baris data",
+            infoFiltered: "(Terfilter dari _MAX_ total baris data)",
+            infoPostFix: "",
+            thousands: ",",
+            lengthMenu: "Filter per _MENU_",
+            loadingRecords: "Loading...",
+            processing: "",
+            search: "Cari:",
+            zeroRecords: "Data tidak ditemukan",
+        };
+
+    </script>
+    
     <style>
         @media (max-width: 576px) {
 
@@ -83,7 +121,7 @@
         @include('layouts.navbars.sidebar')
     @endauth
 
-    <div class="main-content">
+    <div class="main-content mb-5">
         @include('layouts.navbars.navbar')
         @yield('content')
     </div>
@@ -92,17 +130,8 @@
         @include('layouts.footers.guest')
     @endguest
 
-    <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
     <?php if(isset($description) || isset($page)){?>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
-
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
-
+    
     <script>
         $(function() {
             $("#exporttable").click(function(e) {
@@ -133,8 +162,7 @@
         });
     </script>
     <?php } else { ?>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+  
     <?php } ?>
 
     <script>
@@ -145,20 +173,11 @@
         });
 
         $('.datatable').DataTable({
-            language: {
-                paginate: {
-                    next: '&#8594;', // or '→'
-                    previous: '&#8592;' // or '←' 
-                }
-            }
+            language: confLanguage
         });
+
         $('.datatable2').DataTable({
-            language: {
-                paginate: {
-                    next: '&#8594;', // or '→'
-                    previous: '&#8592;' // or '←' 
-                }
-            }
+            language: confLanguage
         });
 
         function inaDate(date, time = false) {

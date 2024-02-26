@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PertanyaanController as Pertanyaan;
 use App\Http\Controllers\Media\WhatsappController as Whatsapp;
+use App\Http\Controllers\Laporan\LogPanggilanController as LogPanggilan;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,6 +103,9 @@ Route::get('/api/eskalasi', 'App\Http\Controllers\MessageApiController@eskalasi'
 
 Route::prefix('pertanyaan')->group(function(){
 	Route::get('/', [Pertanyaan::class, 'index'])->name('pertanyaan');
+	Route::get('/add', [Pertanyaan::class, 'add'])->name('pertanyaan.add');
+	Route::get('/get-child', [Pertanyaan::class, 'getChild'])->name('pertanyaan.get-child');
+	Route::post('/submit', [Pertanyaan::class, 'submit'])->name('pertanyaan.submit');
 });
 
 Route::prefix('media')->group((function(){
@@ -111,3 +115,9 @@ Route::prefix('media')->group((function(){
 		Route::get('/trigger', [Whatsapp::class, 'trigger'])->name('media.whatsapp.trigger');
 	}));
 }));
+
+Route::prefix('laporan')->group(function(){
+	Route::prefix('log-panggilan')->group(function(){
+		Route::get('/', [LogPanggilan::class, 'index'])->name('laporan.log-panggilan');
+	});
+});
