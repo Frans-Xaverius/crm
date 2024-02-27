@@ -69,7 +69,7 @@ class LoginController extends Controller
         $url = env('APP_URL');
 
         if (env('APP_ENV') == 'local') {
-            $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=' . $url . ':8000/auth/callback';
+            $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=' . $url . '/auth/callback';
         } elseif (env('APP_ENV') == 'dev') {
             $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=' . $url . '/auth/callback';
         } else {
