@@ -135,7 +135,9 @@ class LoginController extends Controller
                 return redirect()->intended($this->redirectPath());
             }
         } else {
-            $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth/redirect';
+
+            $redirect = $_ENV['APP_URL'];
+            $login_url = "https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url={$redirect}auth/redirect";
             return Redirect::to($login_url);
         }
     }
