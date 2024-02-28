@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <table class="datatable table">
+            <table class="datatable table table-pertanyaan">
                 <thead>
                     <tr>
                         <th> Level </th>
@@ -31,8 +31,15 @@
                         <td> {{ $p->content }} </td>
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <button class="btn btn-warning"> Edit </button>
-                                <button class="btn btn-danger"> Delete </button>
+                                <a class="btn btn-warning" href="{{ route('pertanyaan.edit') }}?id={{ $p->id }}">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a class="btn btn-success" href="{{ route('pertanyaan.manage') }}?id={{ $p->id }}">
+                                    <i class="bi bi-diagram-2-fill"></i>
+                                </a>
+                                <button class="btn btn-danger do-delete" attr-id="{{ $p->id }}">
+                                    <i class="bi bi-trash"> </i>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -41,6 +48,12 @@
             </table>
         </div>
     </div>
+
+    <form method="POST" class="delete-form" action="{{ route('pertanyaan.delete') }}">
+        @csrf
+        <input type="hidden" name="id">
+    </form>
+
    
 @endsection
 

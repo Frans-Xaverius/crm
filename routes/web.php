@@ -104,8 +104,12 @@ Route::get('/api/eskalasi', 'App\Http\Controllers\MessageApiController@eskalasi'
 Route::prefix('pertanyaan')->group(function(){
 	Route::get('/', [Pertanyaan::class, 'index'])->name('pertanyaan');
 	Route::get('/add', [Pertanyaan::class, 'add'])->name('pertanyaan.add');
+	Route::get('/edit', [Pertanyaan::class, 'edit'])->name('pertanyaan.edit');
 	Route::get('/get-child', [Pertanyaan::class, 'getChild'])->name('pertanyaan.get-child');
 	Route::post('/submit', [Pertanyaan::class, 'submit'])->name('pertanyaan.submit');
+	Route::post('/update', [Pertanyaan::class, 'update'])->name('pertanyaan.update');
+	Route::post('/delete', [Pertanyaan::class, 'delete'])->name('pertanyaan.delete');
+	Route::get('/manage', [Pertanyaan::class, 'manage'])->name('pertanyaan.manage');
 });
 
 Route::prefix('media')->group((function(){
