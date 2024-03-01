@@ -37,9 +37,6 @@
                                 <a class="btn btn-success" href="{{ route('pertanyaan.manage') }}?id={{ $p->id }}">
                                     <i class="bi bi-diagram-2-fill"></i>
                                 </a>
-                                <button class="btn btn-danger do-delete" attr-id="{{ $p->id }}">
-                                    <i class="bi bi-trash"> </i>
-                                </button>
                             </div>
                         </td>
                     </tr>
@@ -48,12 +45,6 @@
             </table>
         </div>
     </div>
-
-    <form method="POST" class="delete-form" action="{{ route('pertanyaan.delete') }}">
-        @csrf
-        <input type="hidden" name="id">
-    </form>
-
    
 @endsection
 

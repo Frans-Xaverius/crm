@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PertanyaanController as Pertanyaan;
+use App\Http\Controllers\Pertanyaan\PertanyaanController as Pertanyaan;
+use App\Http\Controllers\Pertanyaan\ChildController as PertanyaanChild;
 use App\Http\Controllers\Media\WhatsappController as Whatsapp;
 use App\Http\Controllers\Laporan\LogPanggilanController as LogPanggilan;
 
@@ -108,8 +109,13 @@ Route::prefix('pertanyaan')->group(function(){
 	Route::get('/get-child', [Pertanyaan::class, 'getChild'])->name('pertanyaan.get-child');
 	Route::post('/submit', [Pertanyaan::class, 'submit'])->name('pertanyaan.submit');
 	Route::post('/update', [Pertanyaan::class, 'update'])->name('pertanyaan.update');
-	Route::post('/delete', [Pertanyaan::class, 'delete'])->name('pertanyaan.delete');
 	Route::get('/manage', [Pertanyaan::class, 'manage'])->name('pertanyaan.manage');
+
+	Route::prefix('child')->group(function(){
+		Route::post('/update', [PertanyaanChild::class, 'update'])->name('pertanyaan.child.update');
+		Route::post('/append', [PertanyaanChild::class, 'append'])->name('pertanyaan.child.append');
+		Route::post('/delete', [PertanyaanChild::class, 'delete'])->name('pertanyaan.child.delete');
+	});
 });
 
 Route::prefix('media')->group((function(){

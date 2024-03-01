@@ -1,5 +1,16 @@
 @extends('layouts.app')
 
+@section('add-style')
+	<style type="text/css">
+		
+		.orgchart .node .content {
+			height: auto !important;
+			text-wrap: balance !important;
+		}
+
+	</style>
+@endsection
+
 @section('content')
 
 <div class="container-fluid pb-1 pt-3 pt-md-7">
@@ -10,8 +21,10 @@
 			</div>
 			<div class="col-md-5">
 				<div class="d-flex flex-row justify-content-end">
-					<div class="btn-group">
-						<a class="btn btn-primary" href="{{ route('pertanyaan.add') }}"> Tambah </a>
+					<div class="btn-group btn-group-sm">
+						<button class="btn btn-info do-add"> Tambah </button>
+						<button class="btn btn-primary do-edit"> Edit </button>
+						<button class="btn btn-danger do-delete"> Hapus </button>
 					</div>
 				</div>
 			</div>

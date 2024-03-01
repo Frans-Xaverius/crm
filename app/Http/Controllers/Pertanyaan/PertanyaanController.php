@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pertanyaan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class PertanyaanController extends Controller
 
     public function index () {
 
-        $pertanyaan = Pertanyaan::where('content', '!=', NULL)->get();
+        $pertanyaan = Pertanyaan::where('level', '=', 1)->get();
 
         return view ('pertanyaan.index', compact('pertanyaan'));
     }
@@ -85,11 +85,6 @@ class PertanyaanController extends Controller
         Pertanyaan::whereIn('id', $this->arrId)->delete();
         $this->arrId = [];
         return redirect()->route('pertanyaan');
-    }
-
-    public function update (Request $request) {
-
-
     }
 
     public function manage (Request $request) {
