@@ -46,4 +46,26 @@ class ChildController extends PertanyaanController {
         return redirect()->back();
     }
 
+    public function delete (Request $request) {
+
+        $pertanyaan = Pertanyaan::where('id', $request->post('id'))->get();
+        $level = $pertanyaan[0]->level;
+
+        $dt = $this->getAllChild($pertanyaan);
+
+        Pertanyaan::whereIn('id', $this->arrId)->delete();
+        $this->arrId = [];
+
+        if ($level == 1) {
+
+            return redirect()->route('pertanyaan');
+
+        } else {
+
+            return redirect()->back();
+
+        }
+        
+    }
+
 }

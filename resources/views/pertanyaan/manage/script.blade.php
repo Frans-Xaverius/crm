@@ -145,8 +145,32 @@
         })
 	});
 
-	$('.do-delete').on('click', function() {
-		console.log(currData);
+
+	$('.do-delete').on('click', function(){
+
+		Swal.fire({
+			title: 'Konfirmasi',
+			html: `
+				Apakah anda akan menghapus item ini?
+          		<form method="POST" class="delete-form text-left" action="{{ route('pertanyaan.child.delete') }}" enctype="multipart/form-data">
+          			@csrf
+          			<input type="hidden" class="form-control" name="id" value="${currData.numId}" />
+				</form>
+          	`,
+			footer: `<i> Akan menghapus semua item yang berhubungan dengan item ini </i>`,
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Ya',
+			cancelButtonText: 'Tidak',
+		}).
+		then((result) => {
+			if (result.value) {
+				$('.delete-form').submit();
+			}
+		});
+
 	});
 
 	$(document).ready(function(){

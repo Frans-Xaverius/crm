@@ -11,7 +11,7 @@
                 <div class="col-md-5">
                     <div class="d-flex flex-row justify-content-end">
                         <div class="btn-group">
-                            <a class="btn btn-primary" href="{{ route('pertanyaan.add') }}"> Tambah </a>
+                            <button class="btn btn-primary do-add"> Tambah </button>
                         </div>
                     </div>
                 </div>
@@ -19,7 +19,6 @@
             <table class="datatable table table-pertanyaan">
                 <thead>
                     <tr>
-                        <th> Level </th>
                         <th> Pertanyaan </th>
                         <th> Action </th>
                     </tr>
@@ -27,13 +26,9 @@
                 <tbody>
                     @foreach ($pertanyaan as $p)
                     <tr>
-                        <td> {{ $p->level }} </td>
                         <td> {{ $p->content }} </td>
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <a class="btn btn-warning" href="{{ route('pertanyaan.edit') }}?id={{ $p->id }}">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
                                 <a class="btn btn-success" href="{{ route('pertanyaan.manage') }}?id={{ $p->id }}">
                                     <i class="bi bi-diagram-2-fill"></i>
                                 </a>

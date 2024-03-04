@@ -1,27 +1,29 @@
 <script type="text/javascript">
 
-	$('.table-pertanyaan tbody').on('click', '.do-delete', function(){
-
-		let id = $(this).attr('attr-id');
-
+	$('.do-add').on('click', function(){
 		Swal.fire({
-			title: 'Konfirmasi',
-			text: `Apakah anda akan menghapus pertanyaan ini?`,
-			footer: `<i> Akan menghapus semua pertanyaan yang berhubungan dengan pertanyaan ini </i>`,
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Ya',
-			cancelButtonText: 'Tidak',
-		}).
-		then((result) => {
-			if (result.value) {
-				$('.delete-form [name=id]').val(id);
-				$('.delete-form').submit();
-			}
-		});
+          	title: "Tambah Topik Pertanyaan",
+          	showCancelButton: true,
+          	html: `
+          		<form method="POST" class="append-form mt-3 text-left" action="{{ route('pertanyaan.submit') }}" enctype="multipart/form-data">
+          			@csrf
+          			<div class="form-group mt-3">
+          				<input type="text" class="form-control" name="content" value="" />
+          			</div>
+				</form>
+          	`,
+          	confirmButtonColor: '#3085d6',
+          	cancelButtonColor: '#d33',
+          	confirmButtonText: 'Simpan',
+          	cancelButtonText: 'Batal',
+          	allowOutsideClick: false,
+          	width: '45em',
+        }).
+        then((result) => {
+        	if (result.value) {
+        		$('.append-form').submit();
+        	}
+        })
+    });
 
-	});
-    
 </script>

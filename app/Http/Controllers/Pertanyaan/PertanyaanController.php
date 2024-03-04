@@ -10,7 +10,7 @@ use DB;
 class PertanyaanController extends Controller
 {
 
-    private $arrId = [];
+    protected $arrId = [];
 
     public function index () {
 
@@ -19,32 +19,11 @@ class PertanyaanController extends Controller
         return view ('pertanyaan.index', compact('pertanyaan'));
     }
 
-    public function add () {
-
-        $parent = Pertanyaan::where('content', '!=', NULL)->orderBy('level', 'ASC')->get();
-
-        return view ('pertanyaan.add.index', compact('parent'));
-    }
-
-    public function getChild (Request $request) {
-        
-        $data = Pertanyaan::where([
-            'parent_id' => $request->get('id'),
-        ])->get();
-
-        echo json_encode($data);   
-  
-    }
-
     public function submit (Request $request) {
 
-        $dt = Pertanyaan::find($request->post('parent'));
-
         $input = [
-            'level' => $dt->level + 1,
-            'parent_id' => $dt->id,
-            'content' => $request->post('pertanyaan'),
-            'jawaban' => $request->post('jawaban'),
+            'level' => 1,
+            'content' => $request->post('content'),
         ];
 
         Pertanyaan::create($input);
@@ -75,16 +54,6 @@ class PertanyaanController extends Controller
 
         return $pertanyaan;
 
-    }
-
-    public function delete (Request $request) {
-
-        $pertanyaan = Pertanyaan::where('id', $request->post('id'))->get();
-        $dt = $this->getAllChild($pertanyaan);
-
-        Pertanyaan::whereIn('id', $this->arrId)->delete();
-        $this->arrId = [];
-        return redirect()->route('pertanyaan');
     }
 
     public function manage (Request $request) {
