@@ -2,6 +2,7 @@
 <script type="text/javascript">
 
     let currNum = '';
+    const date = new Date();
 
     $('.list-customer').on('click', function(){
 
@@ -53,14 +54,24 @@
 
         Echo.channel('message-channel')
             .listen('MessageEvent', (e) => {
+
+                let pos = '';
+                let res = e.content;
+
+                if (res.admin !== 'true') {
+                    pos = 'start';
+                } else {
+                    pos = 'end';
+                }
+
                 $('#room-detail').append(
-                        `<div class="d-flex flex-row justify-content-left">
+                        `<div class="d-flex flex-row justify-content-${pos}">
                             <div>
                                 <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
-                                    ${e.content}
+                                    ${res.message}
                                 </p>
                                 <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
-                                    00:00
+                                    ${date.getHours()}:${date.getMinutes()}
                                 </p>
                             </div>
                         </div>`

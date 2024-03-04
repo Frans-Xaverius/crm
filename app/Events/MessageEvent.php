@@ -21,11 +21,11 @@ class MessageEvent implements ShouldBroadcast
      * @return void
      */
 
-    public $msg;
+    public $passed;
 
-    public function __construct($msg)
+    public function __construct($passed)
     {
-        $this->msg = $msg;
+        $this->passed = $passed;
     }
 
     /**
@@ -39,8 +39,9 @@ class MessageEvent implements ShouldBroadcast
     }
 
     public function broadcastWith() {
+
         return [
-            'content' => $this->msg
+            'content' => $this->passed
         ];
     }
 }

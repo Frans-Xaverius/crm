@@ -34,9 +34,12 @@ class WhatsappController extends Controller
 
     public function trigger (Request $request) {
 
-        $content = $request->get('message');
-        $event = new MessageEvent($content);
+        $content = (object) [
+            'message' => $request->get('message'),
+            'admin' => $request->get('admin')
+        ];
 
+        $event = new MessageEvent($content);
         broadcast($event);
 
     }
