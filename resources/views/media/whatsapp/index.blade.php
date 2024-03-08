@@ -31,12 +31,6 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="pt-1">
-                                            <p class="small text-muted mb-1"><?php echo date('d/m/Y'); ?></p>
-                                            <span class="badge float-end mt-5 text-danger" style="border: red solid; border-width: thin;">
-                                                Belum Selesai
-                                            </span>
-                                        </div>
                                     </div>
                                 </a>
                             @endforeach 
@@ -52,8 +46,7 @@
                             </div>
                         </div>
                         <div class="text-center mt-2" id="btnIsSolved">
-                            <button class="btn btn-sm btn-success" id="btnSolved">Selesai</button>
-                            <button class="btn btn-sm btn-danger">Belum Selesai</button>
+                            <button class="btn btn-sm btn-success do-complete"> Akhiri Sesi </button>
                         </div>
                     </div>
                     <div class="pt-3 pe-3 pr-3 mt-3" style="height: calc(100vh - 287px);overflow-y: scroll;" id="room-detail">

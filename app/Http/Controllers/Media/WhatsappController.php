@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\WAChat;
 use App\Models\Customer;
 use App\Events\MessageEvent;
+use App\Models\WAConversation;
 
 class WhatsappController extends Controller
 {
@@ -42,5 +43,39 @@ class WhatsappController extends Controller
         $event = new MessageEvent($content);
         broadcast($event);
 
+    }
+
+    public function complete (Request $request) {
+
+        $num = $request->post('number');
+        $customer = Customer::where('no_telp', 'like', "%{$num}%")->first();
+
+        $conversation = WAConversation::where([
+            'customer_id' => $customer->id
+        ])->orderBy('created_at', 'DESC')->first();
+
+        $url = $_ENV['URL_WA'];
+        $msg = urlencode("Berapa rating yang diberikan pada layanan ini?");
+        $requestUrl = "{$url}api?num={$num}&msg={$msg}";
+
+
+        if (!empty($conversation)) {
+            
+            WAConversation::where([
+                'id' => $conversation->id,
+            ])->update([
+                'status' => 2
+            ]);
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $requestUrl);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+
+            curl_exec($ch);
+            curl_close($ch);
+            
+        }
+
+        return redirect()->back();
     }
 }

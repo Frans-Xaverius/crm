@@ -119,6 +119,7 @@ Route::prefix('media')->group((function(){
 		Route::get('/', [Whatsapp::class, 'index'])->name('media.whatsapp');
 		Route::get('/riwayat', [Whatsapp::class, 'riwayat'])->name('media.whatsapp.riwayat');
 		Route::get('/trigger', [Whatsapp::class, 'trigger'])->name('media.whatsapp.trigger');
+		Route::post('/complete', [Whatsapp::class, 'complete'])->name('media.whatsapp.complete');
 	}));
 }));
 

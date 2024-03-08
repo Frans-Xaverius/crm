@@ -93,6 +93,36 @@
             }
         });
 
+        $('.content-msg').val('');
+
+    });
+
+    $(".do-complete").on('click', function(){
+
+        Swal.fire({
+            title: "Konfirmasi",
+            showCancelButton: true,
+            icon: 'warning',
+            html: `
+                Apakah anda akan mengakhiri sesi percakapan ini?
+                <form method="POST" class="complete-form mt-3 text-left" action="{{ route('media.whatsapp.complete') }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" class="form-control" name="number" value="${currNum}" />
+                </form>
+            `,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+            allowOutsideClick: false,
+        }).
+        then((result) => {
+            if (result.value) {
+                $('.complete-form').submit();
+            }
+        })
+
+
     });
 
 
