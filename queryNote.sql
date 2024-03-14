@@ -13,3 +13,8 @@ ALTER TABLE `pertanyaan` CHANGE `parent_id` `parent_id` INT NOT NULL DEFAULT '0'
 
 ALTER TABLE `wa_conversation` ADD `rate` VARCHAR(255) NULL AFTER `status`;
 ALTER TABLE `wa_conversation` CHANGE `status` `status` INT NOT NULL DEFAULT '1';
+
+--
+
+ALTER TABLE `pertanyaan` ADD `file_support` LONGTEXT NULL AFTER `jawaban`;
+ALTER TABLE `pertanyaan` ADD `mime_type` LONGTEXT NULL AFTER `file_support`;

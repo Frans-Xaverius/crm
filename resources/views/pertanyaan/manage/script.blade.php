@@ -4,6 +4,19 @@
 	let listChildren = assignChild(mainData.children, []);
 	let currData = null;
 
+	async function loadFile (dt) {
+
+		let url = "{{ $_ENV['URL_WA'] }}storage";
+		let response = await fetch(`${url}?file=${dt}`);
+		let data = await response.blob();
+
+		let myFile = new File([data], dt);
+		const fileInput = document.querySelector(`[name=file_support]`);
+		const dataTransfer = new DataTransfer();
+		dataTransfer.items.add(myFile);
+		fileInput.files = dataTransfer.files;
+	}
+
 	function assignChild (data, list) {
 
 		$.each(data, function(k, v){
@@ -13,7 +26,9 @@
 				'name': v.content != null ? 'Pertanyaan' : 'Jawaban',
 				'title': v.content ?? v.jawaban,
 				'level': v.level,
+				'file_support': v.file_support,
 				'children': [],
+
 			}
 
 			list.push(object);			
@@ -31,6 +46,7 @@
 		'title': mainData.content,
 		'numId': mainData.id,
 		'level': mainData.level,
+		'file_support': mainData.file_support,
 		'children': listChildren,
 	};
 
@@ -72,7 +88,7 @@
 		let check = fieldJawaban();
 		let field = `
 			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="select-type" value="content">
+				<input class="form-check-input" type="radio" name="select-type" value="content" checked>
 			 	<label class="form-check-label"> Pertanyaan </label>
 			</div>
 			<div class="form-check form-check-inline">
@@ -93,6 +109,10 @@
           			<div class="form-group mt-3">
           				<input type="text" class="form-control a-name" value="" />
           			</div>
+          			<div class="form-group mt-3 support">
+          				<label> File Pendukung </label>
+          				<input type="file" class="form-control" value="" name="file_support" accept=".pdf, .png" />
+          			</div>
 				</form>
           	`,
           	confirmButtonColor: '#3085d6',
@@ -101,10 +121,22 @@
           	cancelButtonText: 'Batal',
           	allowOutsideClick: false,
           	didOpen: () => {
+
+          		$(function(){
+          			$('.support').hide();
+          		});
+
           		$('[name=select-type]').on('click', function(){
           			let name = $(this).val();
           			$('.a-name').attr('name', name);
+
+          			if (name == 'jawaban') {
+          				$('.support').show();
+          			} else {
+          				$('.support').hide();
+          			}
           		});
+
           	},
           	width: '60em',
         }).
@@ -129,6 +161,10 @@
           				<label> ${currData.name} </label>
           				<input type="text" class="form-control" name="${currData.name.toLowerCase()}" value="${currData.title}" />
           			</div>
+          			<div class="form-group mt-3 support">
+          				<label> File Pendukung </label>
+          				<input type="file" class="form-control" value="" name="file_support" accept=".pdf, .png" />
+          			</div>
 				</form>
           	`,
           	confirmButtonColor: '#3085d6',
@@ -136,6 +172,21 @@
           	confirmButtonText: 'Simpan',
           	cancelButtonText: 'Batal',
           	allowOutsideClick: false,
+          	didOpen: () => {
+          		
+          		if (currData.name.toLowerCase() == 'jawaban') {
+
+          			$('.support').show();
+
+          			if (currData.file_support) {
+          				loadFile(currData.file_support);
+          			}
+
+          		} else {
+
+          			$('.support').hide();
+          		}
+          	},
           	width: '60em',
         }).
         then((result) => {

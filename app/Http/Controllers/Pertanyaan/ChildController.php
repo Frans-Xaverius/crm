@@ -6,6 +6,7 @@ use App\Http\Controllers\Pertanyaan\PertanyaanController;
 use Illuminate\Http\Request;
 use App\Models\Pertanyaan;
 use DB;
+use Ramsey\Uuid\Uuid;
 
 class ChildController extends PertanyaanController {
     
@@ -13,11 +14,24 @@ class ChildController extends PertanyaanController {
 
         if ($request->post('jawaban')) {
 
+            $source = [
+                'jawaban' => $request->post('jawaban')
+            ];
+
+            $file = $request->file('file_support');
+
+            if ($file != NULL) {
+
+                $nameFile = Uuid::uuid4().".".$file->getClientOriginalExtension();
+                $file->move($_ENV['PATH_STORAGE'], $nameFile);
+                $source['file_support'] = $nameFile;
+                $source['mime_type'] = $file->getClientMimeType();
+
+            }
+
             Pertanyaan::where([
                 'id' => $request->post('id')
-            ])->update([
-                'jawaban' => $request->post('jawaban')
-            ]);
+            ])->update($source);
 
         } else {
 
@@ -36,14 +50,27 @@ class ChildController extends PertanyaanController {
     public function append (Request $request) {
 
         $type = $request->post('select-type');
-
-        Pertanyaan::create([
+        $source = [
             'parent_id' => $request->post('id'),
             'level' => $request->post('level') + 1,
             $type => $request->post($type)
-        ]);
+        ];
+
+        $file = $request->file('file_support');
+        
+        if ($file != NULL) {
+
+            $nameFile = Uuid::uuid4().".".$file->getClientOriginalExtension();
+            $file->move($_ENV['PATH_STORAGE'], $nameFile);
+            $source['file_support'] = $nameFile;
+            $source['mime_type'] = $file->getClientMimeType();
+            
+        }
+
+        Pertanyaan::create($source);
 
         return redirect()->back();
+
     }
 
     public function delete (Request $request) {
