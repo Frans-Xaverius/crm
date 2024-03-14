@@ -111,7 +111,7 @@
           			</div>
           			<div class="form-group mt-3 support">
           				<label> File Pendukung </label>
-          				<input type="file" class="form-control" value="" name="file_support" accept=".pdf, .png" />
+          				<input type="file" class="form-control" value="" name="file_support" />
           			</div>
 				</form>
           	`,
@@ -163,7 +163,7 @@
           			</div>
           			<div class="form-group mt-3 support">
           				<label> File Pendukung </label>
-          				<input type="file" class="form-control" value="" name="file_support" accept=".pdf, .png" />
+          				<input type="file" class="form-control" value="" name="file_support" />
           			</div>
 				</form>
           	`,
