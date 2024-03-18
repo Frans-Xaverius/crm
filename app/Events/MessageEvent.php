@@ -10,6 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Http\Request;
+use App\Models\WAChat;
 
 class MessageEvent implements ShouldBroadcast
 {
@@ -40,8 +41,11 @@ class MessageEvent implements ShouldBroadcast
 
     public function broadcastWith() {
 
+        $data = WAChat::find($this->passed->message);
+
         return [
-            'content' => $this->passed
+            'content' => $this->passed,
+            'body' => $data
         ];
     }
 }

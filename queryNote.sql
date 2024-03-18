@@ -18,3 +18,8 @@ ALTER TABLE `wa_conversation` CHANGE `status` `status` INT NOT NULL DEFAULT '1';
 
 ALTER TABLE `pertanyaan` ADD `file_support` LONGTEXT NULL AFTER `jawaban`;
 ALTER TABLE `pertanyaan` ADD `mime_type` LONGTEXT NULL AFTER `file_support`;
+
+--
+
+ALTER TABLE `wa_chat` ADD `file_support` LONGTEXT NULL AFTER `content`;
+ALTER TABLE `wa_chat` ADD `mime_type` LONGTEXT NULL AFTER `file_support`;

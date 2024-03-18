@@ -3,6 +3,7 @@
 
     let currNum = '';
     const date = new Date();
+    const mainUrl = `<?= $_ENV['URL_WA'] ?>`;
 
     $('.list-customer').on('click', function(){
 
@@ -26,12 +27,28 @@
                         pos = 'end';
                     }
 
+                    let subPart = `
+                        <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
+                            ${v.content}
+                        </p>
+                    `;
+
+                    if (v.file_support != null) {
+
+                        let url = `${mainUrl}storage?file=${v.file_support}&folder=conversation`;
+
+                        subPart = `
+                            <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
+                                <a download href="${url}"> <i class="bi bi-download"> </i> ${v.file_support} </a>
+                            </p>
+                        `;
+                    }
+
+
                     $('#room-detail').append(
                         `<div class="d-flex flex-row justify-content-${pos}">
                             <div>
-                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
-                                    ${v.content}
-                                </p>
+                                ${subPart}
                                 <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
                                     ${moment.utc(v.created_at).format("HH::mm")}
                                 </p>
@@ -57,6 +74,7 @@
 
                 let pos = '';
                 let res = e.content;
+                let body = e.body;
 
                 if (res.admin !== 'true') {
                     pos = 'start';
@@ -64,17 +82,33 @@
                     pos = 'end';
                 }
 
+                let subPart = `
+                    <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
+                        ${body.content}
+                    </p>
+                `;
+
+                if (body.file_support != null) {
+
+                    let url = `${mainUrl}storage?file=${body.file_support}&folder=conversation`;
+
+                    subPart = `
+                        <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
+                            <a download href="${url}"> <i class="bi bi-download"> </i> ${body.file_support} </a>
+                        </p>
+                    `;
+                }
+
+                
                 $('#room-detail').append(
-                        `<div class="d-flex flex-row justify-content-${pos}">
-                            <div>
-                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
-                                    ${res.message}
-                                </p>
-                                <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
-                                    ${date.getHours()}:${date.getMinutes()}
-                                </p>
-                            </div>
-                        </div>`
+                    `<div class="d-flex flex-row justify-content-${pos}">
+                        <div>
+                            ${subPart}
+                            <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
+                                ${date.getHours()}:${date.getMinutes()}
+                            </p>
+                        </div>
+                    </div>`
                 );
             });
 
@@ -83,8 +117,6 @@
     $('.do-send').on('click', function(){
 
         let content = $('.content-msg').val();
-        let mainUrl = `<?= $_ENV['URL_WA'] ?>`;
-
         $.ajax({
             method: "GET",
             url: `${mainUrl}api?num=${currNum}&msg=${content}`,
