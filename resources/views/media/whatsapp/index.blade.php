@@ -86,9 +86,14 @@
             </div>
             <div class="d-flex justify-content-between align-items-center mt-1 mb-2">
                 <div class="pt-1 d-flex">
-                    <button class="ms-4 btn btn-active do-send">
-                        Kirim &nbsp; <i class="fas fa-paper-plane"></i>
-                    </button>
+                    <div class="btn-group">
+                        <button class="ms-4 btn btn-primary do-send">
+                            Kirim &nbsp; <i class="fas fa-paper-plane"></i>
+                        </button>
+                        <button class="ms-4 btn btn-secondary do-attachment">
+                            <i class="fa fa-file" aria-hidden="true"></i>
+                        </button>
+                    </div>  
                 </div>
             </div>
         </div>

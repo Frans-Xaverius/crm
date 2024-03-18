@@ -9,6 +9,7 @@ use App\Models\WAChat;
 use App\Models\Customer;
 use App\Events\MessageEvent;
 use App\Models\WAConversation;
+use Ramsey\Uuid\Uuid;
 
 class WhatsappController extends Controller
 {
@@ -70,6 +71,7 @@ class WhatsappController extends Controller
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $requestUrl);
             curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 
             curl_exec($ch);
             curl_close($ch);
@@ -77,5 +79,30 @@ class WhatsappController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function storeAttachment (Request $request) {
+
+        $num = $request->post('number');
+        $file = $request->file('file');
+        $nameFile = Uuid::uuid4().".".$file->getClientOriginalExtension();
+        $file->move($_ENV['PATH_CONVERSATION'], $nameFile);
+
+        $url = $_ENV['URL_WA'];
+        $msg = urlencode($nameFile);
+        $type = urlencode($file->getClientMimeType());
+
+        $requestUrl = "{$url}api?num={$num}&msg={$msg}&file=1&type={$type}";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $requestUrl);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+
+        curl_exec($ch);
+        curl_close($ch);
+
+        return redirect()->back();
+
     }
 }

@@ -118,7 +118,7 @@
 
         let content = $('.content-msg').val();
         $.ajax({
-            method: "GET",
+            method: "POST",
             url: `${mainUrl}api?num=${currNum}&msg=${content}`,
             success: function(res) {
                 
@@ -151,6 +151,35 @@
         then((result) => {
             if (result.value) {
                 $('.complete-form').submit();
+            }
+        })
+
+
+    });
+
+    $(".do-attachment").on('click', function(){
+
+        Swal.fire({
+            title: "Input File",
+            showCancelButton: true,
+            icon: 'warning',
+            html: `
+                Kirim dokumen pendukung
+                <form method="POST" class="att-form mt-3 text-left" action="{{ route('media.whatsapp.store-attachment') }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="number" value="${currNum}" />
+                    <input type="file" class="form-control" name="file" />
+                </form>
+            `,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+            allowOutsideClick: false,
+        }).
+        then((result) => {
+            if (result.value) {
+                $('.att-form').submit();
             }
         })
 

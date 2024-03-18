@@ -23,3 +23,5 @@ ALTER TABLE `pertanyaan` ADD `mime_type` LONGTEXT NULL AFTER `file_support`;
 
 ALTER TABLE `wa_chat` ADD `file_support` LONGTEXT NULL AFTER `content`;
 ALTER TABLE `wa_chat` ADD `mime_type` LONGTEXT NULL AFTER `file_support`;
+
+--
