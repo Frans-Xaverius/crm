@@ -14,4 +14,9 @@ class Customer extends Model
 
         return $this->belongsTo(WAChat::class, 'id', 'from')->orderBy('created_at', 'DESC');
     }
+
+    public function to () {
+
+       return $this->belongsTo(WAChat::class, 'id', 'to')->orderBy('created_at', 'DESC');
+    }
 }

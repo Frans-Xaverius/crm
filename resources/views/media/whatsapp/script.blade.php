@@ -162,14 +162,10 @@
         Swal.fire({
             title: "Input File",
             showCancelButton: true,
-            icon: 'warning',
+            icon: 'question',
             html: `
                 Kirim dokumen pendukung
-                <form method="POST" class="att-form mt-3 text-left" action="{{ route('media.whatsapp.store-attachment') }}" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="number" value="${currNum}" />
-                    <input type="file" class="form-control" name="file" />
-                </form>
+                <input type="file" class="form-control mt-3" name="file" />
             `,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -178,9 +174,37 @@
             allowOutsideClick: false,
         }).
         then((result) => {
+
             if (result.value) {
-                $('.att-form').submit();
+                
+                let formData = new FormData();
+                let doc = $('[name=file]').prop('files')[0];
+
+                formData.append('file', doc);
+                formData.append('number', currNum);
+                formData.append('_csrf', `{{ csrf_token() }}`);
+                
+                $.ajax({
+                    type: 'POST',
+                    url: `{{ route('media.whatsapp.store-attachment') }}`,
+                    data: formData,
+                    contentType: false, 
+                    processData: false, 
+                    beforeSend: () => {
+                       $('.field-btn').hide();
+                    },
+                    complete: () => {
+                        Swal.fire({
+                            title: "Berhasil",
+                            text: "File Berhasil Dikirim",
+                            icon: "success"
+                        });
+                        $('.field-btn').show();
+                    }
+                });
+
             }
+
         })
 
 

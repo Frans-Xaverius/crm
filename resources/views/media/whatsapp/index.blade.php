@@ -27,7 +27,7 @@
                                                     {{ $c->no_telp }}
                                                 </p>
                                                 <p class="small text-muted">
-                                                    {{ ($c->from == null) ? '' : $c->from->content }}
+                                                    {{ ($c->to->created_at < $c->from->created_at) ? $c->from->content ?? $c->from->file_support : $c->to->content ?? $c->to->file_support }}
                                                 </p>
                                             </div>
                                         </div>
@@ -84,7 +84,7 @@
             <div class="text-muted d-flex justify-content-end align-items-center mt-5">
                 <textarea class="form-control form-control-lg content-msg" placeholder="Tulis pesan..." rows="3"></textarea>
             </div>
-            <div class="d-flex justify-content-between align-items-center mt-1 mb-2">
+            <div class="d-flex justify-content-between align-items-center mt-1 mb-2 field-btn">
                 <div class="pt-1 d-flex">
                     <div class="btn-group">
                         <button class="ms-4 btn btn-primary do-send">

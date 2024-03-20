@@ -102,7 +102,7 @@ class WhatsappController extends Controller
         curl_exec($ch);
         curl_close($ch);
 
-        return redirect()->back();
+        return json_encode($request->post());
 
     }
 }
