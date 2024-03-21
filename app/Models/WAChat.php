@@ -9,4 +9,14 @@ class WAChat extends Model
 {
     use HasFactory;
     protected $table = 'wa_chat';
+
+    public function sender () {
+
+        return $this->belongsTo(Customer::class, 'from', 'id');
+    }
+
+    public function receiver () {
+
+        return $this->belongsTo(Customer::class, 'to', 'id');
+    }
 }

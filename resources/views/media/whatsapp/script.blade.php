@@ -2,13 +2,15 @@
 <script type="text/javascript">
 
     let currNum = '';
+    let currId = '';
+
     const date = new Date();
     const mainUrl = `<?= $_ENV['URL_WA'] ?>`;
 
-    $('.list-customer').on('click', function(){
+    function setCustomer (id, num) {
 
-    	let id = $(this).attr('attr-id');
-        currNum = $(this).attr('attr-num').split('@')[0];
+        currNum = num.split('@')[0];
+        currId = id;
         $('#room-detail').html('');
 
     	$.ajax({
@@ -63,53 +65,78 @@
 
         $('#room-detail').animate({scrollTop: $('#room-detail').height()}, 1000);
 
-    });
+    }
 
     $(document).ready(function(){
 
-        $('.list-customer')[0].click();
+        if ($('.list-customer').length > 0) {
+            $('.list-customer')[0].click();
+        }
 
         Echo.channel('message-channel')
             .listen('MessageEvent', (e) => {
 
                 let pos = '';
+                let sourceId = 0;
                 let res = e.content;
                 let body = e.body;
+                let subPart = body.content;
 
                 if (res.admin !== 'true') {
+                    sourceId = body.from;
                     pos = 'start';
+
                 } else {
+                    sourceId = body.to;
                     pos = 'end';
                 }
 
-                let subPart = `
-                    <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
-                        ${body.content}
-                    </p>
-                `;
+                if (sourceId == currId) {
 
-                if (body.file_support != null) {
+                    if (body.file_support != null) {
+                        let url = `${mainUrl}storage?file=${body.file_support}&folder=conversation`;
+                        subPart = `<a download href="${url}"> <i class="bi bi-download"> </i> ${body.file_support} </a>`;
+                    }
+                    
+                    $('#room-detail').append(
+                        `<div class="d-flex flex-row justify-content-${pos}">
+                            <div>
+                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
+                                    ${subPart}
+                                </p>
+                                <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
+                                    ${date.getHours()}:${date.getMinutes()}
+                                </p>
+                            </div>
+                        </div>`
+                    );
 
-                    let url = `${mainUrl}storage?file=${body.file_support}&folder=conversation`;
+                    $(`[numid=${sourceId}]`).html(subPart);
 
-                    subPart = `
-                        <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
-                            <a download href="${url}"> <i class="bi bi-download"> </i> ${body.file_support} </a>
-                        </p>
+                } else {
+
+                    let person = e.person.from.is_admin == 1 ? e.person.to : e.person.from;
+                    let fieldQueue = `
+                        <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" onclick="setCustomer('${person.id}', '${person.no_telp}')">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row">
+                                    <img src="/assets/img/user.png" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
+                                    <div class="pt-1">
+                                        <p class="fw-bold mb-0 font-weight-bold">
+                                            ${person.no_telp}
+                                        </p>
+                                        <p class="small text-muted text-msg" numid="${person.id}">
+                                            ${subPart}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     `;
+
+                    $('.chat-queue').append(fieldQueue);
                 }
 
-                
-                $('#room-detail').append(
-                    `<div class="d-flex flex-row justify-content-${pos}">
-                        <div>
-                            ${subPart}
-                            <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
-                                ${date.getHours()}:${date.getMinutes()}
-                            </p>
-                        </div>
-                    </div>`
-                );
             });
 
     });
