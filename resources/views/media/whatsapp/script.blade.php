@@ -113,28 +113,40 @@
 
                     $(`[numid=${sourceId}]`).html(subPart);
 
+                    let childPr = $(`[numid=${sourceId}]`).parents('a');
+                    $('.chat-queue').prepend(childPr);
+
                 } else {
 
                     let person = e.person.from.is_admin == 1 ? e.person.to : e.person.from;
-                    let fieldQueue = `
-                        <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" onclick="setCustomer('${person.id}', '${person.no_telp}')">
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row">
-                                    <img src="/assets/img/user.png" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
-                                    <div class="pt-1">
-                                        <p class="fw-bold mb-0 font-weight-bold">
-                                            ${person.no_telp}
-                                        </p>
-                                        <p class="small text-muted text-msg" numid="${person.id}">
-                                            ${subPart}
-                                        </p>
+                    let currListCustomer = arrCustomer();
+
+                    if (!currListCustomer.includes(person.id)) {
+
+                        let fieldQueue = `
+                            <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" onclick="setCustomer('${person.id}', '${person.no_telp}')">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row">
+                                        <img src="/assets/img/user.png" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
+                                        <div class="pt-1">
+                                            <p class="fw-bold mb-0 font-weight-bold">
+                                                ${person.no_telp}
+                                            </p>
+                                            <p class="small text-muted text-msg" numid="${person.id}">
+                                                ${subPart}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    `;
+                            </a>
+                        `;
+                        
+                        $('.chat-queue').prepend(fieldQueue);
 
-                    $('.chat-queue').append(fieldQueue);
+                    } else {
+
+                        $(`[numid=${person.id}]`).html(subPart);
+                    }
                 }
 
             });
@@ -236,6 +248,18 @@
 
 
     });
+
+    function arrCustomer () {
+
+        let length = $('.text-msg').length;
+        let list = [];
+
+        $.each($('.text-msg'), (x, y) => {
+            list.push(parseInt($(y).attr('numid')));
+        });
+
+        return list;
+    }
 
 
 </script>
