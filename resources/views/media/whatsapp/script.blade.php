@@ -17,7 +17,7 @@
     		method: "GET",
     		url: `{{ route('media.whatsapp.riwayat') }}?id=${id}`,
     		success: function(dt) {
-                
+
     			let res = JSON.parse(dt);
                 let pos = '';
 
@@ -30,7 +30,7 @@
                     }
 
                     let subPart = `
-                        <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
+                        <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7; white-space: pre-line;">
                             ${v.content}
                         </p>
                     `;
@@ -40,7 +40,7 @@
                         let url = `${mainUrl}storage?file=${v.file_support}&folder=conversation`;
 
                         subPart = `
-                            <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
+                            <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7; white-space: pre-line;">
                                 <a download href="${url}"> <i class="bi bi-download"> </i> ${v.file_support} </a>
                             </p>
                         `;
@@ -101,7 +101,7 @@
                     $('#room-detail').append(
                         `<div class="d-flex flex-row justify-content-${pos}">
                             <div>
-                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
+                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7; white-space: pre-line;">
                                     ${subPart}
                                 </p>
                                 <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
@@ -156,9 +156,14 @@
     $('.do-send').on('click', function(){
 
         let content = $('.content-msg').val();
+
         $.ajax({
             method: "POST",
-            url: `${mainUrl}api?num=${currNum}&msg=${content}`,
+            url: `${mainUrl}api`,
+            data: {
+                num: currNum,
+                msg: content
+            },
             success: function(res) {
                 
             }
