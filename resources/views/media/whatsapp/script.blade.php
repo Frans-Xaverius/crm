@@ -41,7 +41,8 @@
 
                         subPart = `
                             <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7; white-space: pre-line;">
-                                <a download href="${url}"> <i class="bi bi-download"> </i> ${v.file_support} </a>
+                                <a download href="${url}"> <i class="bi bi-download"> </i> ${v.file_support} </a> <br />
+                                ${v.caption ?? ''}
                             </p>
                         `;
                     }
@@ -95,7 +96,8 @@
 
                     if (body.file_support != null) {
                         let url = `${mainUrl}storage?file=${body.file_support}&folder=conversation`;
-                        subPart = `<a download href="${url}"> <i class="bi bi-download"> </i> ${body.file_support} </a>`;
+                        subPart = `<a download href="${url}"> <i class="bi bi-download"> </i> ${body.file_support} </a> <br />
+                                    ${body.caption ?? ''}`;
                     }
                     
                     $('#room-detail').append(
@@ -208,8 +210,14 @@
             showCancelButton: true,
             icon: 'question',
             html: `
-                Kirim dokumen pendukung
-                <input type="file" class="form-control mt-3" name="file" />
+                <div class="form-group mt-3 mb-2">
+                    <label> File </label>
+                    <input type="file" class="form-control mt-3" name="file" />
+                </div>
+                <div class="form-group mt-3 mb-2">
+                    <label> Caption </label>
+                    <input type="text" class="form-control" name="caption" />
+                </div>
             `,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -226,6 +234,7 @@
 
                 formData.append('file', doc);
                 formData.append('number', currNum);
+                formData.append('caption', $('[name=caption]').val());
                 formData.append('_csrf', `{{ csrf_token() }}`);
                 
                 $.ajax({

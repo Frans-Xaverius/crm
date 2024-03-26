@@ -84,6 +84,7 @@ class WhatsappController extends Controller
     public function storeAttachment (Request $request) {
 
         $num = $request->post('number');
+        $caption = $request->post('caption');
         $file = $request->file('file');
         $nameFile = Uuid::uuid4().".".$file->getClientOriginalExtension();
         $file->move($_ENV['PATH_CONVERSATION'], $nameFile);
@@ -105,7 +106,8 @@ class WhatsappController extends Controller
             'num' => $num,
             'msg' => $msg,
             'file' => 1,
-            'type' => $type
+            'type' => $type,
+            'caption' => $caption
         ]));
 
         curl_exec($ch);
