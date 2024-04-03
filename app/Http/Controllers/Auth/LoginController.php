@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserRole;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -69,15 +70,19 @@ class LoginController extends Controller
         $url = env('APP_URL');
 
         if (env('APP_ENV') == 'local') {
+
             $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=' . $url . '/auth/callback';
+
         } elseif (env('APP_ENV') == 'dev') {
+
             $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=' . $url . '/auth/callback';
+
         } else {
+
             $login_url = 'https://sso.universitaspertamina.ac.id/sso-login?redirect_url=' . $url . '/auth/callback';
         }
+
         return redirect()->to($login_url);
-        // dd($login_url);
-        // return Redirect::to($login_url);
     }
  
     /**
@@ -110,6 +115,7 @@ class LoginController extends Controller
     {
 
         if (isset($_GET['username'])) {
+
             $username = $_GET['username'];
             $token_login = $_GET['token'];
 
@@ -117,35 +123,39 @@ class LoginController extends Controller
             setcookie('token_login', $token_login, time() + (86400 * 30), "/");
 
             $user = User::where('name', $username)->first();
+            $role = UserRole::where([
+                'name' => 'Guest'
+            ])->first();
+
 
             if ($user != null) {
-                $user = User::find($user->id);
-                // dd($user->id);
-                Auth::loginUsingId([$user->id]);
+
+                Auth::loginUsingId($user->id);
                 return redirect()->intended($this->redirectPath());
+
             } else {
+
                 $user = User::create([
                     'name' => $username,
-                    'email' => '',
-                    'password' => Hash::make($username),
                     'department_id' => 5,
-                    'email_verified_at' => now()
+                    'role' => $role->id
                 ]);
 
                 return redirect()->intended($this->redirectPath());
             }
+
         } else {
 
-            $redirect = $_ENV['APP_URL'];
-            $login_url = "https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url={$redirect}auth/redirect";
-            return Redirect::to($login_url);
+            return Redirect::to("https://sso-dev.universitaspertamina.ac.id");
         }
     }
 
     public function logout(Request $request)
     {
         Session::flush();
+
         if (isset($_COOKIE['token_login']) || isset($_COOKIE['username'])) {
+
             $token_login = $_COOKIE['token_login'];
             $username = $_COOKIE['username'];
             if (isset($_SERVER['HTTP_COOKIE'])) {
@@ -162,8 +172,6 @@ class LoginController extends Controller
             $logout_url = $url . ':8000';
 
             return Redirect::to($clear_session);
-
-            // $logout_url = 'https://sso.universitaspertamina.ac.id/sso-logout?token='.$token_login.'&username='.$username;
 
         }
     }

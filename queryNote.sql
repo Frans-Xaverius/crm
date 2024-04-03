@@ -29,3 +29,19 @@ ALTER TABLE `wa_chat` ADD `mime_type` LONGTEXT NULL AFTER `file_support`;
 ALTER TABLE `wa_chat` ADD `caption` LONGTEXT NULL AFTER `mime_type`;
 
 --
+
+ALTER TABLE `users`
+  DROP `qontak_user_id`,
+  DROP `qontak_email`,
+  DROP `qontak_password`,
+  DROP `email`,
+  DROP `email_verified_at`,
+  DROP `password`,
+  DROP `sso`,
+  DROP `remember_token`,
+  DROP `phone`;
+
+CREATE TABLE `message_manager`.`user_role` (`id` INT NOT NULL AUTO_INCREMENT , `name` TEXT NOT NULL , PRIMARY KEY (`id`));
+INSERT INTO `user_role` (`id`, `name`) VALUES (NULL, 'Super Admin'), (NULL, 'Admin'), (NULL, 'User'), (NULL, 'Guest');
+
+ALTER TABLE `users` CHANGE `role` `role` INT NOT NULL DEFAULT '0';

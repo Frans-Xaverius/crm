@@ -56,8 +56,8 @@ class WhatsappController extends Controller
         ])->orderBy('created_at', 'DESC')->first();
 
         $url = $_ENV['URL_WA'];
-        $msg = urlencode("Berapa rating yang diberikan pada layanan ini?");
-        $requestUrl = "{$url}api?num={$num}&msg={$msg}";
+        $msg = "Berapa rating yang diberikan pada layanan ini?";
+        $requestUrl = "{$url}api";
 
 
         if (!empty($conversation)) {
@@ -72,6 +72,14 @@ class WhatsappController extends Controller
             curl_setopt($ch, CURLOPT_URL, $requestUrl);
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+            ));
+
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+                'num' => $num,
+                'msg' => $msg,
+            ]));
 
             curl_exec($ch);
             curl_close($ch);

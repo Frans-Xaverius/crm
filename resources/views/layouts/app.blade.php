@@ -205,19 +205,7 @@
             }
         }
 
-        function syncData() {
-            $.ajax({
-                type: "get",
-                url: "{{ route('api.sync') }}",
-                dataType: "json",
-                success: function() {
-                    // setTimeout(function() {
-                    //     syncData();
-                    // }, 60000);
-                }
-            });
-        }
-        // syncData();
+       
     </script>
 
     @stack('js')
