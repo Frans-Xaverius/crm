@@ -8,7 +8,7 @@
           	title: "Edit Form",
           	showCancelButton: true,
           	html: `
-          		<form method="POST" class="update-form text-left p-2" action="" enctype="multipart/form-data">
+          		<form method="POST" class="update-form text-left p-2" action="{{ route('manage.user.update') }}" enctype="multipart/form-data">
           			@csrf
           			<input type="hidden" class="form-control" name="id" value="${dt.id}" />
           			<div class="form-group mt-3">
@@ -54,6 +54,34 @@
         	}
         })
 
+	});
+
+	$('.table-users tbody').on('click', '.do-delete', function () {
+
+		let dt = JSON.parse($(this).attr('attr-dt'));
+
+		Swal.fire({
+			title: 'Konfirmasi',
+			icon: 'warning',
+			html: `
+          		<form method="POST" class="delete-form text-left p-2" action="{{ route('manage.user.delete') }}" enctype="multipart/form-data">
+          			@csrf
+          			<h3 class="text-center"> Apakah anda akan menghapus user ini? </h3>
+          			<input type="hidden" class="form-control" name="id" value="${dt.id}" />
+				</form>
+          	`,
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Ya',
+			cancelButtonText: 'Tidak',
+		}).
+		then((result) => {
+			if (result.value) {
+				$('.delete-form').submit();
+			}
+		});
+		
 	});
 
 </script>

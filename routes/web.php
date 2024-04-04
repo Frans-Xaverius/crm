@@ -45,5 +45,7 @@ Route::prefix('laporan')->group(function(){
 Route::prefix('manage')->group(function(){
 	Route::prefix('user')->group(function(){
 		Route::get('/', [ManageUser::class, 'index'])->name('manage.user');
+		Route::post('/update', [ManageUser::class, 'update'])->name('manage.user.update');
+		Route::post('/delete', [ManageUser::class, 'delete'])->name('manage.user.delete');
 	});
 });

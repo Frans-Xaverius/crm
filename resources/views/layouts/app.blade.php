@@ -126,8 +126,19 @@
     @endauth
 
     <div class="main-content mb-5">
+        
         @include('layouts.navbars.navbar')
+
+        @if ($message = Session::get('message'))
+            <div class="container-fluid">
+                <div class="alert alert-{{ $message[1] }}" role="alert">
+                    {{ $message[0] }}
+                </div>    
+            </div>
+        @endif
+
         @yield('content')
+
     </div>
 
     @guest()

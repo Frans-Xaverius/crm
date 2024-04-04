@@ -13,7 +13,7 @@
 
 @section('content')
 
-<div class="container-fluid pb-1 pt-3 pt-md-7">
+<div class="container-fluid pb-1 pt-3 pt-md-1">
 	<div class="mt-2 card bg-white shadow" style="padding: 2.5%;">
 		<div class="row mb-5">
 			<div class="col-md-7">

@@ -2,7 +2,7 @@
 
 @section('content')
 	
-	<div class="container-fluid pb-1 pt-3 pt-md-7">
+	<div class="container-fluid pt-md-1">
 		<div class="mt-2 card bg-white shadow" style="padding: 2.5%;">
 			<table class="datatable table table-users">
                 <thead>
