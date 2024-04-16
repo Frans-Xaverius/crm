@@ -34,6 +34,17 @@
 		</div>
 	</div>
 
+	<div class="mt-3 card bg-white shadow" style="padding: 2.5%">
+		<div class="row">
+			<div class="col">
+				<div id="pie"></div>
+			</div>
+			<div class="col">
+				<div id="pie2"></div>
+			</div>
+		</div>
+	</div>
+
 	<div class="mt-3 card bg-white shadow" style="padding: 2.5%;">
 		<table class="datatable table">
 			<thead>

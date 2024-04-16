@@ -11,7 +11,22 @@ class LogPanggilanController extends Controller {
 
     private $phoneNumber = '0215085754';
     public $monthData =  ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    public $object = [];
     
+    public function createChart ($dt, $flag) {
+
+        $arrHari = [];
+        foreach ($dt->toArray() as $d) {
+            if ($d['disposition'] == $flag) {
+                $hari = Carbon::createFromFormat('Y-m-d H:i:s', $d['calldate'])->format('l');
+                array_push($arrHari, $hari);
+            }
+        }
+
+        return array_count_values($arrHari);
+
+    }
+
     public function index (Request $request) {
 
         $month = $this->monthData;
@@ -24,7 +39,11 @@ class LogPanggilanController extends Controller {
                ->whereYear('calldate', $currYear)
                ->get();
 
-        return view ('laporan.log-panggilan.index', compact('cdr', 'month'));
+        $this->object['answer'] = $this->createChart($cdr, 'ANSWERED');
+        $this->object['no_answer'] = $this->createChart($cdr, 'NO ANSWER');
+        $chartData = json_encode((object) $this->object);
+
+        return view ('laporan.log-panggilan.index', compact('cdr', 'month', 'chartData'));
     }
 
 }

@@ -158,13 +158,14 @@
     $('.do-send').on('click', function(){
 
         let content = $('.content-msg').val();
+        let name = `{{ Auth::user()->name }}`;
 
         $.ajax({
             method: "POST",
             url: `${mainUrl}api`,
             data: {
                 num: currNum,
-                msg: content
+                msg: `${content}\n\n-${name}-`
             },
             success: function(res) {
                 
