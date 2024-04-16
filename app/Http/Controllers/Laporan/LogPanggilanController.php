@@ -12,13 +12,14 @@ class LogPanggilanController extends Controller {
     private $phoneNumber = '0215085754';
     public $monthData =  ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
     public $object = [];
-    
+
     public function createChart ($dt, $flag) {
 
         $arrHari = [];
         foreach ($dt->toArray() as $d) {
             if ($d['disposition'] == $flag) {
-                $hari = Carbon::createFromFormat('Y-m-d H:i:s', $d['calldate'])->format('l');
+                $carbonDate = Carbon::createFromFormat('Y-m-d H:i:s', $d['calldate'])->locale('id');
+                $hari = $carbonDate->getTranslatedDayName('dddd');
                 array_push($arrHari, $hari);
             }
         }
