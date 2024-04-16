@@ -35,12 +35,17 @@
 	</div>
 
 	<div class="mt-3 card bg-white shadow" style="padding: 2.5%">
-		<div class="row">
+		<div class="row mb-3">
 			<div class="col">
 				<div id="pie"></div>
 			</div>
 			<div class="col">
 				<div id="pie2"></div>
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col">
+				<div id="line"></div>
 			</div>
 		</div>
 	</div>

@@ -45,3 +45,5 @@ CREATE TABLE `message_manager`.`user_role` (`id` INT NOT NULL AUTO_INCREMENT , `
 INSERT INTO `user_role` (`id`, `name`) VALUES (NULL, 'Super Admin'), (NULL, 'Admin'), (NULL, 'User'), (NULL, 'Guest');
 
 ALTER TABLE `users` CHANGE `role` `role` INT NOT NULL DEFAULT '0';
+
+--

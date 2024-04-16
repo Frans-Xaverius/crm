@@ -13,10 +13,11 @@ class LogPanggilanController extends Controller {
     public $monthData =  ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
     public $object = [];
 
-    public function createChart ($dt, $flag) {
+    protected function createChart ($dt, $flag) {
 
         $arrHari = [];
         foreach ($dt->toArray() as $d) {
+
             if ($d['disposition'] == $flag) {
                 $carbonDate = Carbon::createFromFormat('Y-m-d H:i:s', $d['calldate'])->locale('id');
                 $hari = $carbonDate->getTranslatedDayName('dddd');
@@ -25,7 +26,35 @@ class LogPanggilanController extends Controller {
         }
 
         return array_count_values($arrHari);
+    }
 
+    protected function createDuration ($dt) {
+
+        $dt = array_column($dt->toArray(), 'duration', 'calldate');
+        $arrDuration = [];
+        $curr = 0;
+
+        foreach ($dt as $k => $d) {
+
+            $date = (int) Carbon::createFromFormat('Y-m-d H:i:s', $k)->format('d');
+
+            if ($date > $curr) {
+                
+                array_push($arrDuration, (object) [
+                    'date' => $date,
+                    'min' => $d,
+                ]);
+
+                $curr = $date;
+
+            } else {
+                
+                $len = count($arrDuration);
+                $arrDuration[$len - 1]->min += $d; 
+            }
+        }
+
+        return json_encode($arrDuration);
     }
 
     public function index (Request $request) {
@@ -44,7 +73,8 @@ class LogPanggilanController extends Controller {
         $this->object['no_answer'] = $this->createChart($cdr, 'NO ANSWER');
         $chartData = json_encode((object) $this->object);
 
-        return view ('laporan.log-panggilan.index', compact('cdr', 'month', 'chartData'));
+        $duration = $this->createDuration($cdr);
+        return view ('laporan.log-panggilan.index', compact('cdr', 'month', 'chartData', 'duration'));
     }
 
 }

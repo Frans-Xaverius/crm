@@ -76,6 +76,50 @@
 		});
 	}
 
+</script>
+
+<script type="text/javascript">
+
+	let mainDt = JSON.parse(`{!! $duration !!}`);
+	let dataX = [];
+	let dataY = [];
+
+	$.each(mainDt, (k,v) => {
+		dataX.push(v.date);
+		dataY.push(parseFloat(parseFloat(v.min / 60).toFixed(2)));
+	});
+	
+	Highcharts.chart('line', {
+	    chart: {
+	        type: 'line'
+	    },
+	    title: {
+	        text: 'Durasi Panggilan'
+	    },
+	    xAxis: {
+	        categories: dataX,
+	        title: {
+	        	text: 'Tanggal'
+	        }
+	    },
+	    yAxis: {
+	        title: {
+	            text: 'Jam'
+	        }
+	    },
+	    plotOptions: {
+	        line: {
+	            dataLabels: {
+	                enabled: true
+	            },
+	            enableMouseTracking: false
+	        }
+	    },
+	    series: [{
+	        name: 'Durasi Panggilan',
+	        data: dataY
+	    }]
+	});
 
 
 </script>

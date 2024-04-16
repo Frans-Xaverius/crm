@@ -1,4 +1,4 @@
-<nav class="navbar" id="navbar-main">
+<nav class="navbar navbar-horizontal navbar-expand-lg" id="navbar-main">
   <div class="container-fluid">
     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-2 mt-3">
       <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
