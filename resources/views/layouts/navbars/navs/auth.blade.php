@@ -17,6 +17,7 @@
           </div>
         </a>
         <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+          <div class="dropdown-item"> ({{ auth()->user()->detailRole->name }}) </div>
           <div class="dropdown-divider"></div>
           <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
           document.getElementById('logout-form').submit();">

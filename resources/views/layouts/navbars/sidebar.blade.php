@@ -66,6 +66,7 @@
                 </div>
             </form>
             <!-- Navigation -->
+            <h3> General </h3>
             <ul class="navbar-nav p-1">
                 <li class="nav-item">
                     <a class="nav-link text-blue" href="{{ route('home') }}">
@@ -104,33 +105,35 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-blue" href="{{ route('pertanyaan') }}">
-                       <i class="bi bi-question-square"></i> {{ __('Pertanyaan') }}
-                    </a>
-                </li>
             </ul>
-            <div class="menu-access mt-4" attr-role="SU">
-                <h3> Super Admin </h3>
-                <ul class="navbar-nav p-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-blue" href="#navbar-manage" data-toggle="collapse" role="button"
-                            aria-expanded="true" aria-controls="navbar-manage">
-                            <i class="ni ni-app" style="margin-right: -5px;"></i>
-                            <span class="nav-link-text">{{ __('Manage') }}</span>
-                        </a>
-                        <div class="collapse" id="navbar-manage">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link text-blue" href="{{ route('manage.user') }}">
-                                       {{ __('User') }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            @if (auth()->user()->detailRole->name == "Super Admin")
+                <div class="menu-access mt-4" attr-role="SU">
+                    <h3> Super Admin </h3>
+                    <ul class="navbar-nav p-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-blue" href="#navbar-manage" data-toggle="collapse" role="button"
+                                aria-expanded="true" aria-controls="navbar-manage">
+                                <i class="ni ni-app" style="margin-right: -5px;"></i>
+                                <span class="nav-link-text">{{ __('Manage') }}</span>
+                            </a>
+                            <div class="collapse" id="navbar-manage">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-blue" href="{{ route('manage.user') }}">
+                                           {{ __('User') }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-blue" href="{{ route('pertanyaan') }}">
+                               <i class="bi bi-question-square"></i> {{ __('Pertanyaan') }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            @endif
         </div>
     </div>
 </nav>

@@ -14,18 +14,6 @@ Auth::routes();
 Route::get('/home', [Home::class, 'index'])->name('home');
 Route::get('/auth/callback', [Login::class, 'auth'])->name('ssoLoginSuccess');
 
-Route::prefix('pertanyaan')->group(function(){
-	Route::get('/', [Pertanyaan::class, 'index'])->name('pertanyaan');
-	Route::post('/submit', [Pertanyaan::class, 'submit'])->name('pertanyaan.submit');
-	Route::get('/manage', [Pertanyaan::class, 'manage'])->name('pertanyaan.manage');
-
-	Route::prefix('child')->group(function(){
-		Route::post('/update', [PertanyaanChild::class, 'update'])->name('pertanyaan.child.update');
-		Route::post('/append', [PertanyaanChild::class, 'append'])->name('pertanyaan.child.append');
-		Route::post('/delete', [PertanyaanChild::class, 'delete'])->name('pertanyaan.child.delete');
-	});
-});
-
 Route::prefix('media')->group((function(){
 	Route::prefix('whatsapp')->group((function(){
 		Route::get('/', [Whatsapp::class, 'index'])->name('media.whatsapp');
@@ -42,10 +30,26 @@ Route::prefix('laporan')->group(function(){
 	});
 });
 
-Route::prefix('manage')->group(function(){
-	Route::prefix('user')->group(function(){
-		Route::get('/', [ManageUser::class, 'index'])->name('manage.user');
-		Route::post('/update', [ManageUser::class, 'update'])->name('manage.user.update');
-		Route::post('/delete', [ManageUser::class, 'delete'])->name('manage.user.delete');
+Route::group(['middleware' => ['super.admin']], function(){
+
+	Route::prefix('manage')->group(function(){
+		Route::prefix('user')->group(function(){
+			Route::get('/', [ManageUser::class, 'index'])->name('manage.user');
+			Route::post('/update', [ManageUser::class, 'update'])->name('manage.user.update');
+			Route::post('/delete', [ManageUser::class, 'delete'])->name('manage.user.delete');
+		});
 	});
+
+	Route::prefix('pertanyaan')->group(function(){
+		Route::get('/', [Pertanyaan::class, 'index'])->name('pertanyaan');
+		Route::post('/submit', [Pertanyaan::class, 'submit'])->name('pertanyaan.submit');
+		Route::get('/manage', [Pertanyaan::class, 'manage'])->name('pertanyaan.manage');
+
+		Route::prefix('child')->group(function(){
+			Route::post('/update', [PertanyaanChild::class, 'update'])->name('pertanyaan.child.update');
+			Route::post('/append', [PertanyaanChild::class, 'append'])->name('pertanyaan.child.append');
+			Route::post('/delete', [PertanyaanChild::class, 'delete'])->name('pertanyaan.child.delete');
+		});
+	});
+	
 });
