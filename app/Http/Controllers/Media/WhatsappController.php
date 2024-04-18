@@ -35,7 +35,18 @@ class WhatsappController extends Controller
             'to' => $request->get('id')
         ])->orderBy('created_at', 'ASC')->get();
 
-        echo json_encode($data);
+        $num = $request->get('num');
+        $customer = Customer::where('no_telp', 'like', "%{$num}%")->first();
+        $user = User::select('name', 'role')->where([
+            'id' => $customer->user_id
+        ])->first();
+
+        $res = (object) [
+            'chat' => $data,
+            'eks' => $user
+        ];
+
+        echo json_encode($res);
     }
 
     public function trigger (Request $request) {

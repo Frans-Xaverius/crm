@@ -48,8 +48,8 @@
                             </div>
                         </div>
                         <div class="d-flex">
-                            <div class="mt-2">
-                                Penanggung Jawab :  
+                            <div class="mt-2 text-eks">
+                                
                             </div>
                         </div>
                     </div>

@@ -15,13 +15,14 @@
 
     	$.ajax({
     		method: "GET",
-    		url: `{{ route('media.whatsapp.riwayat') }}?id=${id}`,
+    		url: `{{ route('media.whatsapp.riwayat') }}?id=${id}&num=${num}`,
     		success: function(dt) {
 
     			let res = JSON.parse(dt);
                 let pos = '';
+                $('.text-eks').html(`Penanggung Jawab : ${res.eks.name}`);
 
-                $.each(res, function(k,v){
+                $.each(res.chat, function(k,v){
 
                     if (v.from == id) {
                         pos = 'start';
