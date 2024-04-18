@@ -11,7 +11,7 @@ use App\Http\Controllers\Laporan\LogPanggilanController as LogPanggilan;
 use App\Http\Controllers\Manage\UserController as ManageUser;
 
 Auth::routes();
-Route::get('/home', [Home::class, 'index'])->name('home');
+Route::get('/', [Home::class, 'index'])->name('home');
 Route::get('/auth/callback', [Login::class, 'auth'])->name('ssoLoginSuccess');
 
 Route::prefix('media')->group((function(){
@@ -21,6 +21,7 @@ Route::prefix('media')->group((function(){
 		Route::get('/trigger', [Whatsapp::class, 'trigger'])->name('media.whatsapp.trigger');
 		Route::post('/complete', [Whatsapp::class, 'complete'])->name('media.whatsapp.complete');
 		Route::post('/store-attachment', [Whatsapp::class, 'storeAttachment'])->name('media.whatsapp.store-attachment');
+		Route::post('/eskalasi', [Whatsapp::class, 'eskalasi'])->name('media.whatsapp.eskalasi');
 	}));
 }));
 

@@ -10,6 +10,8 @@ use App\Models\Customer;
 use App\Events\MessageEvent;
 use App\Models\WAConversation;
 use Ramsey\Uuid\Uuid;
+use App\Models\User;
+use Exception;
 
 class WhatsappController extends Controller
 {
@@ -19,7 +21,9 @@ class WhatsappController extends Controller
             'is_admin' => 0
         ])->get();
 
-        return view ('media.whatsapp.index', compact('customer'));
+        $users = User::all();
+
+        return view ('media.whatsapp.index', compact('customer', 'users'));
     }
 
 
@@ -123,5 +127,29 @@ class WhatsappController extends Controller
 
         return json_encode($request->post());
 
+    }
+
+    public function eskalasi (Request $request) {
+
+        try {
+            
+            $customer = Customer::where('no_telp', 'like', "%{$request->post('number')}%")->first();
+
+            if (empty($customer)) {
+                throw new Exception("User tidak ada", 1);
+            }
+        
+            Customer::where([
+                'id' => $customer->id
+            ])->update([
+                'user_id' => $request->post('user_id')
+            ]);
+
+            return redirect()->back()->with('message', ['Update Berhasil', 'success']);
+
+        } catch (Exception $e) {
+            
+            return redirect()->back()->with('message', [$e->getMessage(), 'danger']);
+        }
     }
 }

@@ -204,6 +204,46 @@
 
     });
 
+    $(".do-eksalasi").on('click', function(){
+
+        Swal.fire({
+            title: "Edit Eskalasi",
+            showCancelButton: true,
+            html: `
+                <form method="POST" class="text-left pr-4 pl-4 eks-form" enctype="multipart/form-data" action="{{ route('media.whatsapp.eskalasi') }}">
+                    @csrf
+                    <input type="hidden" name="number" value="${currNum}" />
+                    <div class="form-group mt-3">
+                        <label> User </label>
+                        <select class="form-control form-control-sm eks-select" name="user_id">
+                            <option selected disabled> -- Pilih -- </option>
+                            @foreach($users as $u)
+                                <option value="{{ $u->id }}">{{ $u->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </form>
+            `,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Simpan',
+            cancelButtonText: 'Batal',
+            allowOutsideClick: false,
+            didOpen: () => {
+                $('.eks-select').select2({
+                    dropdownParent: $('.swal2-container'),
+                });
+            },
+            width: '50em',
+        }).
+        then((result) => {
+            if (result.value) {
+                $('.eks-form').submit();
+            }
+        });
+
+    });
+
     $(".do-attachment").on('click', function(){
 
         Swal.fire({

@@ -8,13 +8,13 @@
           	title: "Edit Form",
           	showCancelButton: true,
           	html: `
-          		<form method="POST" class="update-form text-left p-2" action="{{ route('manage.user.update') }}" enctype="multipart/form-data">
+          		<form method="POST" class="update-form text-left pr-4 pl-4" action="{{ route('manage.user.update') }}" enctype="multipart/form-data">
           			@csrf
           			<input type="hidden" class="form-control" name="id" value="${dt.id}" />
           			<div class="form-group mt-3">
           				<label> Role </label>
           				<select class="form-control form-control-sm par-select" name="role">
-          					<option selected> -- Pilih -- </option>
+          					<option selected disabled> -- Pilih -- </option>
           					@foreach($role as $r)
           						<option value="{{ $r->id }}">{{ $r->name }}</option>
           					@endforeach
@@ -23,7 +23,7 @@
           			<div class="form-group mt-3">
           				<label> Department </label>
           				<select class="form-control form-control-sm par-select" name="department_id">
-          					<option selected> -- Pilih -- </option>
+          					<option selected disabled> -- Pilih -- </option>
           					@foreach($department as $d)
           						<option value="{{ $d->id }}">{{ $d->name }}</option>
           					@endforeach

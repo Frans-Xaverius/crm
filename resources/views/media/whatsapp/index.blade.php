@@ -41,17 +41,19 @@
                 </div>
 
                 <div class="col-md-9">
-                    <div class="d-flex mt-2 mb-2">
-                        <div style="display: none;" id="isSolved">
-                            <div class="d-flex flex-row justify-content-start mb-4 pt-2 pl-2 round pr-2 mr-3" style="background-color: green; height: 45px;">
-                                <span class="text-white"> Percakapan ini sudah selesai </span>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex">
+                            <div class="mt-2">
+                                <button class="btn btn-sm btn-success do-complete"> Akhiri Sesi </button>
                             </div>
                         </div>
-                        <div class="text-center mt-2" id="btnIsSolved">
-                            <button class="btn btn-sm btn-success do-complete"> Akhiri Sesi </button>
+                        <div class="d-flex">
+                            <div class="mt-2">
+                                Penanggung Jawab :  
+                            </div>
                         </div>
                     </div>
-                    <div class="pt-3 pe-3 pr-3 mt-3" style="height: calc(100vh - 287px);overflow-y: scroll;" id="room-detail">
+                    <div class="pt-3 pe-3 pr-3 mt-3" style="height: calc(100vh - 287px);overflow-y: scroll; padding: 2%;" id="room-detail">
                         
                     </div>
                 </div>
@@ -59,7 +61,7 @@
                 
 
             </div>
-            <div class="text-muted d-flex justify-content-end align-items-center mt-5">
+            <div class="text-muted d-flex justify-content-end align-items-center mt-5 mb-3">
                 <textarea class="form-control form-control-lg content-msg" placeholder="Tulis pesan..." rows="3"></textarea>
             </div>
             <div class="d-flex justify-content-between align-items-center mt-1 mb-2 field-btn">
@@ -72,6 +74,11 @@
                             <i class="fa fa-file" aria-hidden="true"></i>
                         </button>
                     </div>  
+                </div>
+                <div class="pt-1 d-flex">
+                    <button class="ms-4 btn btn-warning do-eksalasi">
+                        Eskalasi
+                    </button>
                 </div>
             </div>
         </div>

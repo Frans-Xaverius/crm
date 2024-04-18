@@ -47,3 +47,5 @@ INSERT INTO `user_role` (`id`, `name`) VALUES (NULL, 'Super Admin'), (NULL, 'Adm
 ALTER TABLE `users` CHANGE `role` `role` INT NOT NULL DEFAULT '0';
 
 --
+
+ALTER TABLE `customer` ADD `user_id` INT NOT NULL DEFAULT '0';
