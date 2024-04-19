@@ -12,17 +12,29 @@ use App\Models\WAConversation;
 use Ramsey\Uuid\Uuid;
 use App\Models\User;
 use Exception;
+use Auth;
 
 class WhatsappController extends Controller
 {
     public function index () {
 
-        $customer = Customer::where([
-            'is_admin' => 0
-        ])->get();
+        $role = Auth::user()->detailRole->name;
+
+        if ($role == "Super Admin") {
+
+            $customer = Customer::where([
+                'is_admin' => 0
+            ])->get();
+
+        } else {
+
+            $customer = Customer::where([
+                'is_admin' => 0,
+                'user_id' => Auth::user()->id
+            ])->get();
+        }
 
         $users = User::all();
-
         return view ('media.whatsapp.index', compact('customer', 'users'));
     }
 

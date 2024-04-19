@@ -20,7 +20,10 @@
 
     			let res = JSON.parse(dt);
                 let pos = '';
-                $('.text-eks').html(`Penanggung Jawab : ${res.eks.name}`);
+
+                if (res.eks != null) {
+                    $('.text-eks').html(`Penanggung Jawab : ${res.eks.name}`);
+                }
 
                 $.each(res.chat, function(k,v){
 
@@ -73,6 +76,8 @@
 
         if ($('.list-customer').length > 0) {
             $('.list-customer')[0].click();
+        } else {
+            $('button').prop('disabled', true);
         }
 
         Echo.channel('message-channel')

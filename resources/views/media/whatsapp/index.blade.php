@@ -75,11 +75,13 @@
                         </button>
                     </div>  
                 </div>
-                <div class="pt-1 d-flex">
-                    <button class="ms-4 btn btn-warning do-eksalasi">
-                        Eskalasi
-                    </button>
-                </div>
+                @if(auth()->user()->detailRole->name == "Super Admin")
+                    <div class="pt-1 d-flex">
+                        <button class="ms-4 btn btn-warning do-eksalasi">
+                            Eskalasi
+                        </button>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
