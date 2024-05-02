@@ -9,6 +9,7 @@ use App\Http\Controllers\Media\WhatsappController as Whatsapp;
 use App\Http\Controllers\Laporan\LogPanggilanController as LogPanggilan;
 
 use App\Http\Controllers\Manage\UserController as ManageUser;
+use App\Http\Controllers\Manage\TagController as ManageTag;
 
 Auth::routes();
 Route::get('/', [Home::class, 'index'])->name('home');
@@ -38,6 +39,13 @@ Route::group(['middleware' => ['super.admin']], function(){
 			Route::get('/', [ManageUser::class, 'index'])->name('manage.user');
 			Route::post('/update', [ManageUser::class, 'update'])->name('manage.user.update');
 			Route::post('/delete', [ManageUser::class, 'delete'])->name('manage.user.delete');
+			Route::get('/load', [ManageUser::class, 'load'])->name('manage.user.load');
+		});
+		Route::prefix('tag')->group(function(){
+			Route::get('/', [ManageTag::class, 'index'])->name('manage.tag');
+			Route::post('/update', [ManageTag::class, 'update'])->name('manage.tag.update');
+			Route::post('/delete', [ManageTag::class, 'delete'])->name('manage.tag.delete');
+			Route::post('/add', [ManageTag::class, 'add'])->name('manage.tag.add');
 		});
 	});
 

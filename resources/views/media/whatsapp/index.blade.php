@@ -40,22 +40,38 @@
                     </div>
                 </div>
 
-                <div class="col-md-9">
+                <div class="col-md-6">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex">
                             <div class="mt-2">
                                 <button class="btn btn-sm btn-success do-complete"> Akhiri Sesi </button>
                             </div>
                         </div>
-                        <div class="d-flex">
-                            <div class="mt-2 text-eks">
-                                
-                            </div>
-                        </div>
                     </div>
                     <div class="pt-3 pe-3 pr-3 mt-3" style="height: calc(100vh - 287px);overflow-y: scroll; padding: 2%;" id="room-detail">
                         
                     </div>
+                </div>
+
+                <div class="col-md-3">
+                    <fieldset class="border border-dark">
+                        <legend class="w-auto" style="font-size: 20px; text-align: center;"> Tag dan Eskalasi </legend>
+                        <form class="p-3">
+                            <div class="form-group">
+                                <label> Penanggung Jawab </label>
+                                <input type="text" name="text-eks" class="form-control form-control-sm" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label> Tag </label>
+                                <select class="form-control" name="tags" multiple>
+                                    @foreach($tag as $t)
+                                        <option value="{{ $t->id }}"> {{ $t->name }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button class="btn btn-primary btn-sm mb-3" style="float: right;"> Simpan Tag </button>
+                        </form>
+                    </fieldset>
                 </div>
 
                 

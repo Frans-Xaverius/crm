@@ -49,3 +49,7 @@ ALTER TABLE `users` CHANGE `role` `role` INT NOT NULL DEFAULT '0';
 --
 
 ALTER TABLE `customer` ADD `user_id` INT NOT NULL DEFAULT '0';
+
+-- (02/05/2024)
+
+ALTER TABLE `users` ADD `username` TEXT NOT NULL AFTER `id`;

@@ -122,26 +122,26 @@ class LoginController extends Controller
             setcookie('username', $username, time() + (86400 * 30), "/");
             setcookie('token_login', $token_login, time() + (86400 * 30), "/");
 
-            $user = User::where('name', $username)->first();
+            $user = User::where('username', $username)->first();
             $role = UserRole::where([
                 'name' => 'Guest'
             ])->first();
 
-
             if ($user != null) {
 
                 Auth::loginUsingId($user->id);
-                return redirect()->intended($this->redirectPath());
+                return redirect()->intended('/');
 
             } else {
 
                 $user = User::create([
                     'name' => $username,
+                    'username' => $username,
                     'department_id' => 5,
                     'role' => $role->id
                 ]);
 
-                return redirect()->intended($this->redirectPath());
+                return redirect()->intended('/');
             }
 
         } else {

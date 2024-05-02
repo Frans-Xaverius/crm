@@ -123,6 +123,11 @@
                                            {{ __('User') }}
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-blue" href="{{ route('manage.tag') }}">
+                                           {{ __('Tag') }}
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

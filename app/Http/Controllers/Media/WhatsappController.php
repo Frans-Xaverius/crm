@@ -13,6 +13,7 @@ use Ramsey\Uuid\Uuid;
 use App\Models\User;
 use Exception;
 use Auth;
+use App\Models\Tag;
 
 class WhatsappController extends Controller
 {
@@ -35,7 +36,9 @@ class WhatsappController extends Controller
         }
 
         $users = User::all();
-        return view ('media.whatsapp.index', compact('customer', 'users'));
+        $tag = Tag::all();
+
+        return view ('media.whatsapp.index', compact('customer', 'users', 'tag'));
     }
 
 

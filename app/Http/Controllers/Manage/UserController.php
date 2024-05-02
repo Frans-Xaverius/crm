@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Department;
+use GuzzleHttp\Client;
 
 class UserController extends Controller {
 
@@ -40,5 +41,33 @@ class UserController extends Controller {
         ])->delete();
 
         return redirect()->back()->with(['message' => ['User berhasil dihapus', 'warning']]);
+    }
+
+    public function load () {
+
+        $user = User::all();
+
+        foreach ($user as $u) {
+
+            $client = new Client();
+            $target = "https://sso-dev.universitaspertamina.ac.id/api/username-check?username={$u->username}";
+            $response = $client->request('POST', $target, ['verify' => false]);
+
+            $statusCode = $response->getStatusCode();
+            $content = $response->getBody()->getContents();
+            $res = json_decode($content);
+
+            if(!empty($res->data)) {
+
+                User::where([
+                    'id' => $u->id
+                ])->update([
+                    'name' => $res->data->name
+                ]);
+            }
+        }
+
+        return redirect()->back()->with(['message' => ['Load user berhasil', 'info']]);
+
     }
 }

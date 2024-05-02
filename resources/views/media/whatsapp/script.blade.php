@@ -22,7 +22,7 @@
                 let pos = '';
 
                 if (res.eks != null) {
-                    $('.text-eks').html(`Penanggung Jawab : ${res.eks.name}`);
+                    $('[name=text-eks]').val(res.eks.name);
                 }
 
                 $.each(res.chat, function(k,v){
@@ -79,6 +79,8 @@
         } else {
             $('button').prop('disabled', true);
         }
+
+        $('[name=tags]').select2();
 
         Echo.channel('message-channel')
             .listen('MessageEvent', (e) => {
