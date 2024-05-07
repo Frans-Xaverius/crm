@@ -53,3 +53,15 @@ ALTER TABLE `customer` ADD `user_id` INT NOT NULL DEFAULT '0';
 -- (02/05/2024)
 
 ALTER TABLE `users` ADD `username` TEXT NOT NULL AFTER `id`;
+
+-- (07/05/2024)
+
+CREATE TABLE `pabx` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `calldate` DATETIME NULL,
+  `number` TEXT NULL,
+  `durasi` BIGINT NULL,
+  `respon` TEXT NULL,
+  `catatan` LONGTEXT NULL,
+  PRIMARY KEY (`id`)
+);

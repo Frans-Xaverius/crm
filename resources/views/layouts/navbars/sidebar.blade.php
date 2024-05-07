@@ -83,7 +83,14 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link text-blue" href="{{ route('media.whatsapp') }}">
-                                   <i class="bi bi-whatsapp"></i> {{ __('WA Business') }}
+                                   {{ __('Whats App') }}
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link text-blue" href="{{ route('media.pabx') }}">
+                                   {{ __('PABX') }}
                                 </a>
                             </li>
                         </ul>

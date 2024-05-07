@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cdr;
 use Carbon\Carbon;
+use App\Models\Pabx;
 
 class LogPanggilanController extends Controller {
 
@@ -28,8 +29,9 @@ class LogPanggilanController extends Controller {
         return array_count_values($arrHari);
     }
 
-    protected function createDuration ($dt) {
+    protected function createDuration ($dt, $flag) {
 
+        $dt = $dt->where('disposition', $flag);
         $dt = array_column($dt->toArray(), 'duration', 'calldate');
         $arrDuration = [];
         $curr = 0;
@@ -42,7 +44,7 @@ class LogPanggilanController extends Controller {
                 
                 array_push($arrDuration, (object) [
                     'date' => $date,
-                    'min' => $d,
+                    'detik' => $d,
                 ]);
 
                 $curr = $date;
@@ -50,11 +52,11 @@ class LogPanggilanController extends Controller {
             } else {
                 
                 $len = count($arrDuration);
-                $arrDuration[$len - 1]->min += $d; 
+                $arrDuration[$len - 1]->detik += $d; 
             }
         }
 
-        return json_encode($arrDuration);
+        return $arrDuration;
     }
 
     public function index (Request $request) {
@@ -73,8 +75,12 @@ class LogPanggilanController extends Controller {
         $this->object['no_answer'] = $this->createChart($cdr, 'NO ANSWER');
         $chartData = json_encode((object) $this->object);
 
-        $duration = $this->createDuration($cdr);
-        return view ('laporan.log-panggilan.index', compact('cdr', 'month', 'chartData', 'duration'));
+        $duration = json_encode((object) [
+            'answer' => $this->createDuration($cdr, 'ANSWERED'),
+            'noAnswer' => $this->createDuration($cdr, 'NO ANSWER')
+        ]);
+
+        return view ('laporan.log-panggilan.index', compact('cdr', 'month', 'chartData', 'duration', 'currMonth', 'currYear'));
     }
 
 }

@@ -51,22 +51,32 @@
 	</div>
 
 	<div class="mt-3 card bg-white shadow" style="padding: 2.5%;">
-		<table class="datatable table">
+		<table class="datatable table table-log">
 			<thead>
 				<tr>
 					<th> Tanggal </th>
+					<th> Jam </th>
 					<th> Nomor </th>
 					<th> Respon </th>
 					<th> Durasi </th>
+					<th width="5%"> Catatan </th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach ($cdr as $c)
 					<tr>
 						<th> {{ date("d/m/Y", strtotime($c->calldate)) }} </th>
+						<th> {{ date("h:i:s", strtotime($c->calldate)) }} </th>
 						<th> {{ $c->src }} </th>
 						<th> {{ $c->disposition }} </th>
 						<th> {{ $c->duration }} </th>
+						<th>
+							@if ($c->pabx)
+								<button class="btn btn-info btn-sm do-show" attr-ctt="{!! $c->pabx->catatan ?? '-' !!}"> Detail </button>
+							@else
+								<button class="btn btn-danger btn-sm" disabled> Tidak Ada </button>
+							@endif
+						</th>
 					</tr>
 				@endforeach
 			</tbody>

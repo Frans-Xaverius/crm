@@ -3,8 +3,8 @@
 	$(document).ready(function(){
 
 		const param = new URLSearchParams(window.location.search);
-		$('.val-year').val(param.get('year'));
-		$('.val-month').val(param.get('month'));
+		$('.val-year').val(`{{ $currYear }}`);
+		$('.val-month').val(`{{ $currMonth }}`);
 
 		$('.form-select').select2();
 	});
@@ -17,6 +17,15 @@
 
 		window.location.href = `${url}?month=${bulan}&year=${tahun}`;
 
+	});
+
+	$('.table-log').on('click', '.do-show', function(){
+		let dt = $(this).attr('attr-ctt');
+		Swal.fire({
+			title: 'Catatan',
+			html: dt,
+			width: '50em'
+		});
 	});
 
 </script>
@@ -82,11 +91,11 @@
 
 	let mainDt = JSON.parse(`{!! $duration !!}`);
 	let dataX = [];
-	let dataY = [];
+	let dataTerjawab = [];
 
-	$.each(mainDt, (k,v) => {
+	$.each(mainDt.answer, (k,v) => {
 		dataX.push(v.date);
-		dataY.push(parseFloat(parseFloat(v.min / 60).toFixed(2)));
+		dataTerjawab.push(parseFloat(parseFloat(v.detik / 60).toFixed(2)));
 	});
 	
 	Highcharts.chart('line', {
@@ -104,7 +113,7 @@
 	    },
 	    yAxis: {
 	        title: {
-	            text: 'Jam'
+	            text: 'Detik'
 	        }
 	    },
 	    plotOptions: {
@@ -117,7 +126,7 @@
 	    },
 	    series: [{
 	        name: 'Durasi Panggilan',
-	        data: dataY
+	        data: dataTerjawab
 	    }]
 	});
 

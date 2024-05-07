@@ -6,16 +6,18 @@ use App\Http\Controllers\HomeController as Home;
 use App\Http\Controllers\Pertanyaan\PertanyaanController as Pertanyaan;
 use App\Http\Controllers\Pertanyaan\ChildController as PertanyaanChild;
 use App\Http\Controllers\Media\WhatsappController as Whatsapp;
+use App\Http\Controllers\Media\PabxController as Pabx;
 use App\Http\Controllers\Laporan\LogPanggilanController as LogPanggilan;
 
 use App\Http\Controllers\Manage\UserController as ManageUser;
 use App\Http\Controllers\Manage\TagController as ManageTag;
 
 Auth::routes();
-Route::get('/', [Home::class, 'index'])->name('home');
 Route::get('/auth/callback', [Login::class, 'auth'])->name('ssoLoginSuccess');
+Route::get('/', [Home::class, 'index'])->name('home');
 
 Route::prefix('media')->group((function(){
+	
 	Route::prefix('whatsapp')->group((function(){
 		Route::get('/', [Whatsapp::class, 'index'])->name('media.whatsapp');
 		Route::get('/riwayat', [Whatsapp::class, 'riwayat'])->name('media.whatsapp.riwayat');
@@ -24,6 +26,12 @@ Route::prefix('media')->group((function(){
 		Route::post('/store-attachment', [Whatsapp::class, 'storeAttachment'])->name('media.whatsapp.store-attachment');
 		Route::post('/eskalasi', [Whatsapp::class, 'eskalasi'])->name('media.whatsapp.eskalasi');
 	}));
+
+	Route::prefix('pabx')->group((function(){
+		Route::get('/', [Pabx::class, 'index'])->name('media.pabx');
+		Route::post('/submit', [Pabx::class, 'submit'])->name('media.pabx.submit');
+	}));
+
 }));
 
 Route::prefix('laporan')->group(function(){
