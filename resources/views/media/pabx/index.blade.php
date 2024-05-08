@@ -24,14 +24,16 @@
 			</thead>
 			<tbody>
 				@foreach ($cdr as $k => $c)
-					<tr class="{{ strtolower($c->disposition) == 'answered' ? 'bg-warning text-white' : '' }}">
+					<tr class="{{ ((strtolower($c->disposition) == 'answered') && (!$c->pabx)) ? 'bg-warning text-white' : '' }}">
 						<th> {{ $k + 1 }} </th>
 						<th> {{ date("h:i:s", strtotime($c->calldate)) }} </th>
 						<th> {{ $c->src }} </th>
 						<th> {{ $c->disposition }} </th>
 						<th> {{ $c->duration }} </th>
 						<th>
-							<button class="btn btn-sm btn-info do-note" attr-dt="{{ json_encode($c) }}"> <i class="bi bi-pencil"></i> </button>
+							<button class="btn btn-sm btn-info do-note" attr-dt="{{ json_encode($c) }}" attr-ct="{!! ($c->pabx->catatan) ?? '' !!}">
+								<i class="bi bi-pencil"></i>
+							</button>
 						</th>
 					</tr>
 				@endforeach

@@ -3,9 +3,10 @@
 	$('.table-tag').on('click', '.do-note', function () {
 		
 		let dt = JSON.parse($(this).attr('attr-dt'));
+		let ct = $(this).attr('attr-ct');
 
 		Swal.fire({
-          	title: "Tambah Form",
+          	title: "Catatan",
           	showCancelButton: true,
           	html: `
           		<form method="POST" class="append-form mt-3 text-left" action="{{ route('media.pabx.submit') }}" enctype="multipart/form-data">
@@ -18,7 +19,7 @@
 
           			<div class="form-group">
 						<label class="mb-3"> Catatan </label>
-						<textarea name="catatan" class="form-control editor" rows="6"></textarea>
+						<textarea name="catatan" class="form-control editor" rows="6">${ct}</textarea>
 					</div>
 
 				</form>
@@ -30,7 +31,7 @@
           	allowOutsideClick: false,
           	didOpen: () => {
           		ClassicEditor.create(document.querySelector('.editor'), {
-          			toolbar: [ '|', 'bold', 'italic']
+          			toolbar: [ '|', 'undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList', 'outdent', 'indent']
           		});
           	},
           	width: '60em',

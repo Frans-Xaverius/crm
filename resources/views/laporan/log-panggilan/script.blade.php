@@ -23,8 +23,15 @@
 		let dt = $(this).attr('attr-ctt');
 		Swal.fire({
 			title: 'Catatan',
-			html: dt,
-			width: '50em'
+			html: `<textarea class="form-control show-text"> ${dt} </textarea>`,
+			width: '60em',
+			didOpen: () => {
+				ClassicEditor.create(document.querySelector('.show-text'), {
+          			toolbar: [],
+          		}).then((editor) => {
+          			 editor.enableReadOnlyMode("editor");
+          		});
+			}
 		});
 	});
 

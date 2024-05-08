@@ -15,19 +15,11 @@ class PabxController extends Controller {
     public function index () {
 
         $now = Carbon::now();
-        $pabx = Pabx::select('*')
-                ->whereMonth('calldate', $now->month)
-                ->whereYear('calldate', $now->year)
-                ->whereDay('calldate', $now->day)
-                ->get();
-
-        $callDate = $pabx->pluck('calldate')->toArray();
         $cdr = Cdr::where('src', 'not like', "%{$this->phoneNumber}%")
                ->where(Cdr::raw('CHAR_LENGTH(src)'), '>', 4)
                ->whereMonth('calldate', $now->month)
                ->whereYear('calldate', $now->year)
                ->whereDay('calldate', $now->day)
-               ->whereNotIn('calldate', $callDate)
                ->get();
 
         return view('media.pabx.index', compact('cdr'));
@@ -35,14 +27,29 @@ class PabxController extends Controller {
 
     public function submit (Request $request) {
 
-        Pabx::create([
+        $check = Pabx::where([
             'calldate' => $request->post('calldate'),
+        ])->first();
+
+        $arrData = [
             'number' => $request->post('number'),
             'durasi' => $request->post('durasi'),
             'catatan' => $request->post('catatan'),
             'respon' => $request->post('respon')
-        ]);
+        ];
 
-        return redirect()->back();
+        if (empty($check)) {
+
+            $arrData['calldate'] = $request->post('calldate');
+            Pabx::create($arrData);
+
+        } else {
+
+            Pabx::where([
+                'id' => $check->id
+            ])->update($arrData);
+        }
+
+        return redirect()->back()->with('message', ['Action Berhasil', 'success']);;
     }
 }
