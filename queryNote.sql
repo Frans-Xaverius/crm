@@ -65,3 +65,12 @@ CREATE TABLE `pabx` (
   `catatan` LONGTEXT NULL,
   PRIMARY KEY (`id`)
 );
+
+-- (14/05/2024)
+
+CREATE TABLE `wa_tag` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `tags_id` INT NOT NULL,
+  `wa_conversation_id` INT NOT NULL,
+  PRIMARY KEY (`id`)
+);

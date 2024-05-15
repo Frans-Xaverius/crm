@@ -13,8 +13,5 @@ class Controller extends BaseController
     
     public $eskalasi;
     public $role;
-
-    public function __construct() {
-        $this->middleware('auth');
-    }
+    
 }

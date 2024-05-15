@@ -11,9 +11,12 @@
 
         currNum = num.split('@')[0];
         currId = id;
-        $('#room-detail').html('');
 
-    	$.ajax({
+        $('#room-detail').html('');
+        $('.do-complete').prop('disabled', true);
+        $('[name=conv_id]').val(id);
+    	
+        $.ajax({
     		method: "GET",
     		url: `{{ route('media.whatsapp.riwayat') }}?id=${id}&num=${num}`,
     		success: function(dt) {
@@ -23,6 +26,10 @@
 
                 if (res.eks != null) {
                     $('[name=text-eks]').val(res.eks.name);
+                }
+
+                if (res.chat.length > 0) {
+                    $('.do-complete').prop('disabled', false);
                 }
 
                 $.each(res.chat, function(k,v){
@@ -80,7 +87,7 @@
             $('button').prop('disabled', true);
         }
 
-        $('[name=tags]').select2();
+        $('.tags').select2();
 
         Echo.channel('message-channel')
             .listen('MessageEvent', (e) => {

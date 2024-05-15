@@ -9,4 +9,9 @@ class WAConversation extends Model
 {
     use HasFactory;
     protected $table = 'wa_conversation';
+
+    public function chat () {
+
+        return $this->hasMany(WAChat::class, 'wa_conversation_id')->orderBy('created_at', 'ASC');
+    }
 }

@@ -56,14 +56,16 @@
                 <div class="col-md-3">
                     <fieldset class="border border-dark">
                         <legend class="w-auto" style="font-size: 20px; text-align: center;"> Tag dan Eskalasi </legend>
-                        <form class="p-3">
+                        <form class="p-3" method="POST" enctype="multipart/form-data" action="{{ route('media.whatsapp.set-tag') }}">
+                            @csrf
+                            <input type="hidden" name="conv_id">
                             <div class="form-group">
                                 <label> Penanggung Jawab </label>
                                 <input type="text" name="text-eks" class="form-control form-control-sm" disabled>
                             </div>
                             <div class="form-group">
                                 <label> Tag </label>
-                                <select class="form-control" name="tags" multiple>
+                                <select class="form-control tags" name="tags[]" multiple>
                                     @foreach($tag as $t)
                                         <option value="{{ $t->id }}"> {{ $t->name }} </option>
                                     @endforeach

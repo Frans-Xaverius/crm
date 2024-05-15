@@ -14,6 +14,7 @@ use App\Models\User;
 use Exception;
 use Auth;
 use App\Models\Tag;
+use App\Models\WATag;
 
 class WhatsappController extends Controller
 {
@@ -44,11 +45,10 @@ class WhatsappController extends Controller
 
     public function riwayat (Request $request) {
 
-        $data = WAChat::where([
-            'from' => $request->get('id')
-        ])->orWhere([
-            'to' => $request->get('id')
-        ])->orderBy('created_at', 'ASC')->get();
+        $conversation = WAConversation::where([
+            'customer_id' => $request->get('id'),
+            'status' => 1
+        ])->first();
 
         $num = $request->get('num');
         $customer = Customer::where('no_telp', 'like', "%{$num}%")->first();
@@ -57,11 +57,12 @@ class WhatsappController extends Controller
         ])->first();
 
         $res = (object) [
-            'chat' => $data,
+            'chat' => $conversation->chat ?? [],
             'eks' => $user
         ];
 
         echo json_encode($res);
+
     }
 
     public function trigger (Request $request) {
@@ -177,5 +178,18 @@ class WhatsappController extends Controller
             
             return redirect()->back()->with('message', [$e->getMessage(), 'danger']);
         }
+    }
+
+    public function setTag (Request $request) {
+
+        foreach ($request->post('tags') as $t) {
+            
+            WATag::create([
+                'tags_id' => $t,
+                'wa_conversation_id' => $request->post('conv_id')
+            ]);
+        }
+
+        return redirect()->back()->with('message', ['Update Berhasil', 'success']);
     }
 }
