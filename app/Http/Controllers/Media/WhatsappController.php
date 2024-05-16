@@ -24,14 +24,14 @@ class WhatsappController extends Controller
 
         if ($role == "Super Admin") {
 
-            $customer = Customer::where([
-                'is_admin' => 0
+            $conversation = WAConversation::where([
+                'status' => 1
             ])->get();
 
         } else {
 
-            $customer = Customer::where([
-                'is_admin' => 0,
+            $conversation = WAConversation::where([
+                'status' => 1,
                 'user_id' => Auth::user()->id
             ])->get();
         }
@@ -39,7 +39,7 @@ class WhatsappController extends Controller
         $users = User::all();
         $tag = Tag::all();
 
-        return view ('media.whatsapp.index', compact('customer', 'users', 'tag'));
+        return view ('media.whatsapp.index', compact('conversation', 'users', 'tag'));
     }
 
 
@@ -50,15 +50,9 @@ class WhatsappController extends Controller
             'status' => 1
         ])->first();
 
-        $num = $request->get('num');
-        $customer = Customer::where('no_telp', 'like', "%{$num}%")->first();
-        $user = User::select('name', 'role')->where([
-            'id' => $customer->user_id
-        ])->first();
-
         $res = (object) [
             'chat' => $conversation->chat ?? [],
-            'eks' => $user,
+            'eks' => $conversation->user,
             'tag' => $conversation->tag->pluck('tags_id')->toArray() ?? [],
         ];
 
@@ -167,8 +161,8 @@ class WhatsappController extends Controller
                 throw new Exception("User tidak ada", 1);
             }
         
-            Customer::where([
-                'id' => $customer->id
+            WAConversation::where([
+                'customer_id' => $customer->id
             ])->update([
                 'user_id' => $request->post('user_id')
             ]);

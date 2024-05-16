@@ -74,3 +74,6 @@ CREATE TABLE `wa_tag` (
   `wa_conversation_id` INT NOT NULL,
   PRIMARY KEY (`id`)
 );
+
+ALTER TABLE `wa_conversation` ADD `user_id` INT NOT NULL DEFAULT '0';
+ALTER TABLE `customer` DROP `user_id`;

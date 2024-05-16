@@ -17,19 +17,17 @@
                     </div>
                     <div data-mdb-perfect-scrollbar="true" style="position: relative; height: calc(100vh - 287px); overflow-y: scroll;">
                         <div class="list-group chat-queue" style="width: 100%" id="room">
-                            @foreach ($customer as $c)
-                                <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" onclick="setCustomer('{{ $c->id }}', '{{ $c->no_telp }}' )">
+                            @foreach ($conversation as $c)
+                                <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" onclick="setCustomer('{{ $c->customer->id }}', '{{ $c->customer->no_telp }}' )">
                                     <div class="d-flex justify-content-between">
                                         <div class="d-flex flex-row">
                                             <img src="/assets/img/user.png" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
                                             <div class="pt-1">
                                                 <p class="fw-bold mb-0 font-weight-bold">
-                                                    {{ $c->no_telp }}
+                                                    {{ $c->customer->no_telp }}
                                                 </p>
                                                 <p class="small text-muted text-msg" numid="{{ $c->id }}">
-                                                    @if (!empty($c->to) && !empty($c->from))
-                                                        {{ ($c->to->created_at < $c->from->created_at) ? $c->from->content ?? $c->from->file_support : $c->to->content ?? $c->to->file_support }}
-                                                    @endif
+                                                    {{ $c->chat->reverse()->first()->content }}
                                                 </p>
                                             </div>
                                         </div>
