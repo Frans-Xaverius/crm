@@ -14,4 +14,10 @@ class WAConversation extends Model
 
         return $this->hasMany(WAChat::class, 'wa_conversation_id')->orderBy('created_at', 'ASC');
     }
+
+
+    public function tag () {
+
+        return $this->hasMany(WATag::class, 'wa_conversation_id');
+    }
 }

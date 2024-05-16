@@ -58,7 +58,8 @@ class WhatsappController extends Controller
 
         $res = (object) [
             'chat' => $conversation->chat ?? [],
-            'eks' => $user
+            'eks' => $user,
+            'tag' => $conversation->tag->pluck('tags_id')->toArray() ?? [],
         ];
 
         echo json_encode($res);
@@ -182,11 +183,20 @@ class WhatsappController extends Controller
 
     public function setTag (Request $request) {
 
+        $conversation = WAConversation::where([
+            'customer_id' => $request->post('customer_id'),
+            'status' => 1
+        ])->first();
+
+        WATag::where([
+            'wa_conversation_id' => $conversation->id
+        ])->delete();
+
         foreach ($request->post('tags') as $t) {
             
             WATag::create([
                 'tags_id' => $t,
-                'wa_conversation_id' => $request->post('conv_id')
+                'wa_conversation_id' => $conversation->id
             ]);
         }
 

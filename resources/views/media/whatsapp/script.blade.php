@@ -6,6 +6,7 @@
 
     const date = new Date();
     const mainUrl = `<?= $_ENV['URL_WA'] ?>`;
+    const $selectTag = $('.tags').select2();
 
     function setCustomer (id, num) {
 
@@ -14,7 +15,7 @@
 
         $('#room-detail').html('');
         $('.do-complete').prop('disabled', true);
-        $('[name=conv_id]').val(id);
+        $('[name=customer_id]').val(id);
     	
         $.ajax({
     		method: "GET",
@@ -23,6 +24,7 @@
 
     			let res = JSON.parse(dt);
                 let pos = '';
+                $selectTag.val(res.tag).trigger('change');
 
                 if (res.eks != null) {
                     $('[name=text-eks]').val(res.eks.name);
@@ -86,8 +88,6 @@
         } else {
             $('button').prop('disabled', true);
         }
-
-        $('.tags').select2();
 
         Echo.channel('message-channel')
             .listen('MessageEvent', (e) => {

@@ -58,7 +58,7 @@
                         <legend class="w-auto" style="font-size: 20px; text-align: center;"> Tag dan Eskalasi </legend>
                         <form class="p-3" method="POST" enctype="multipart/form-data" action="{{ route('media.whatsapp.set-tag') }}">
                             @csrf
-                            <input type="hidden" name="conv_id">
+                            <input type="hidden" name="customer_id">
                             <div class="form-group">
                                 <label> Penanggung Jawab </label>
                                 <input type="text" name="text-eks" class="form-control form-control-sm" disabled>
