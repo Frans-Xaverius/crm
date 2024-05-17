@@ -18,7 +18,7 @@
                     <div data-mdb-perfect-scrollbar="true" style="position: relative; height: calc(100vh - 287px); overflow-y: scroll;">
                         <div class="list-group chat-queue" style="width: 100%" id="room">
                             @foreach ($conversation as $c)
-                                <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" onclick="setCustomer('{{ $c->customer->id }}', '{{ $c->customer->no_telp }}' )">
+                                <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" onclick="setConversation('{{ $c->id }}')">
                                     <div class="d-flex justify-content-between">
                                         <div class="d-flex flex-row">
                                             <img src="/assets/img/user.png" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
@@ -26,8 +26,8 @@
                                                 <p class="fw-bold mb-0 font-weight-bold">
                                                     {{ $c->customer->no_telp }}
                                                 </p>
-                                                <p class="small text-muted text-msg" numid="{{ $c->id }}">
-                                                    {{ $c->chat->reverse()->first()->content }}
+                                                <p class="small text-muted text-msg" attr-convid="{{ $c->id }}">
+                                                    {{ $c->chat->reverse()->first()->content ?? '' }}
                                                 </p>
                                             </div>
                                         </div>
@@ -56,7 +56,7 @@
                         <legend class="w-auto" style="font-size: 20px; text-align: center;"> Tag dan Eskalasi </legend>
                         <form class="p-3" method="POST" enctype="multipart/form-data" action="{{ route('media.whatsapp.set-tag') }}">
                             @csrf
-                            <input type="hidden" name="customer_id">
+                            <input type="hidden" class="input-tag" name="conv_id">
                             <div class="form-group">
                                 <label> Penanggung Jawab </label>
                                 <input type="text" name="text-eks" class="form-control form-control-sm" disabled>

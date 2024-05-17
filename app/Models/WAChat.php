@@ -19,4 +19,9 @@ class WAChat extends Model
 
         return $this->belongsTo(Customer::class, 'to', 'id');
     }
+
+    public function conversation () {
+
+        return $this->belongsTo(WAConversation::class, 'wa_conversation_id', 'id');
+    }
 }

@@ -5,9 +5,11 @@ use App\Http\Controllers\Auth\LoginController as Login;
 use App\Http\Controllers\HomeController as Home;
 use App\Http\Controllers\Pertanyaan\PertanyaanController as Pertanyaan;
 use App\Http\Controllers\Pertanyaan\ChildController as PertanyaanChild;
-use App\Http\Controllers\Media\WhatsappController as Whatsapp;
+use App\Http\Controllers\Media\WhatsappController as WhatsappMedia;
 use App\Http\Controllers\Media\PabxController as Pabx;
+
 use App\Http\Controllers\Laporan\LogPanggilanController as LogPanggilan;
+use App\Http\Controllers\Laporan\WhatsappController as WhatsappLaporan;
 
 use App\Http\Controllers\Manage\UserController as ManageUser;
 use App\Http\Controllers\Manage\TagController as ManageTag;
@@ -20,13 +22,13 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::prefix('media')->group((function(){
 		
 		Route::prefix('whatsapp')->group((function(){
-			Route::get('/', [Whatsapp::class, 'index'])->name('media.whatsapp');
-			Route::get('/riwayat', [Whatsapp::class, 'riwayat'])->name('media.whatsapp.riwayat');
-			Route::get('/trigger', [Whatsapp::class, 'trigger'])->name('media.whatsapp.trigger')->withoutMiddleware('auth');
-			Route::post('/complete', [Whatsapp::class, 'complete'])->name('media.whatsapp.complete');
-			Route::post('/store-attachment', [Whatsapp::class, 'storeAttachment'])->name('media.whatsapp.store-attachment');
-			Route::post('/eskalasi', [Whatsapp::class, 'eskalasi'])->name('media.whatsapp.eskalasi');
-			Route::post('/set-tag', [Whatsapp::class, 'setTag'])->name('media.whatsapp.set-tag');
+			Route::get('/', [WhatsappMedia::class, 'index'])->name('media.whatsapp');
+			Route::get('/riwayat', [WhatsappMedia::class, 'riwayat'])->name('media.whatsapp.riwayat');
+			Route::get('/trigger', [WhatsappMedia::class, 'trigger'])->name('media.whatsapp.trigger')->withoutMiddleware('auth');
+			Route::post('/complete', [WhatsappMedia::class, 'complete'])->name('media.whatsapp.complete');
+			Route::post('/store-attachment', [WhatsappMedia::class, 'storeAttachment'])->name('media.whatsapp.store-attachment');
+			Route::post('/eskalasi', [WhatsappMedia::class, 'eskalasi'])->name('media.whatsapp.eskalasi');
+			Route::post('/set-tag', [WhatsappMedia::class, 'setTag'])->name('media.whatsapp.set-tag');
 		}));
 
 		Route::prefix('pabx')->group((function(){
@@ -39,6 +41,9 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::prefix('laporan')->group(function(){
 		Route::prefix('log-panggilan')->group(function(){
 			Route::get('/', [LogPanggilan::class, 'index'])->name('laporan.log-panggilan');
+		});
+		Route::prefix('whatsapp')->group(function(){
+			Route::get('/', [WhatsappLaporan::class, 'index'])->name('laporan.whatsapp');
 		});
 	});
 

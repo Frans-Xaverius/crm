@@ -1,29 +1,31 @@
 @vite('resources/js/app.js')
 <script type="text/javascript">
 
-    let currNum = '';
-    let currId = '';
+    let currConvId = '';
+    let adminId = `{{ $adminId }}`;
+    let currNum = 0;
 
     const date = new Date();
     const mainUrl = `<?= $_ENV['URL_WA'] ?>`;
     const $selectTag = $('.tags').select2();
 
-    function setCustomer (id, num) {
+    function setConversation (id) {
 
-        currNum = num.split('@')[0];
-        currId = id;
-
+        currConvId = id;
         $('#room-detail').html('');
+        
         $('.do-complete').prop('disabled', true);
-        $('[name=customer_id]').val(id);
+        $('.input-tag').val(currConvId);
     	
         $.ajax({
     		method: "GET",
-    		url: `{{ route('media.whatsapp.riwayat') }}?id=${id}&num=${num}`,
+    		url: `{{ route('media.whatsapp.riwayat') }}?id=${id}`,
     		success: function(dt) {
 
     			let res = JSON.parse(dt);
                 let pos = '';
+
+                currNum = res.customer.no_telp.split('@')[0];
                 $selectTag.val(res.tag).trigger('change');
 
                 if (res.eks != null) {
@@ -36,7 +38,7 @@
 
                 $.each(res.chat, function(k,v){
 
-                    if (v.from == id) {
+                    if (v.to == adminId) {
                         pos = 'start';
                     } else {
                         pos = 'end';
@@ -93,21 +95,19 @@
             .listen('MessageEvent', (e) => {
 
                 let pos = '';
-                let sourceId = 0;
                 let res = e.content;
                 let body = e.body;
                 let subPart = body.content;
+                let conversationId = e.conversation.id;
 
                 if (res.admin !== 'true') {
-                    sourceId = body.from;
                     pos = 'start';
 
                 } else {
-                    sourceId = body.to;
                     pos = 'end';
                 }
 
-                if (sourceId == currId) {
+                if (conversationId == currConvId) {
 
                     if (body.file_support != null) {
                         let url = `${mainUrl}storage?file=${body.file_support}&folder=conversation`;
@@ -128,28 +128,27 @@
                         </div>`
                     );
 
-                    $(`[numid=${sourceId}]`).html(subPart);
+                    $(`[attr-convid=${conversationId}]`).html(subPart);
 
-                    let childPr = $(`[numid=${sourceId}]`).parents('a');
+                    let childPr = $(`[attr-convid=${conversationId}]`).parents('a');
                     $('.chat-queue').prepend(childPr);
 
                 } else {
 
-                    let person = e.person.from.is_admin == 1 ? e.person.to : e.person.from;
                     let currListCustomer = arrCustomer();
 
-                    if (!currListCustomer.includes(person.id)) {
+                    if (!currListCustomer.includes(conversationId)) {
 
                         let fieldQueue = `
-                            <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" onclick="setCustomer('${person.id}', '${person.no_telp}')">
+                            <a href="#" class="list-group-item list-group-item-action border-bottom p-2 list-customer" onclick="setConversation('${conversationId}')">
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex flex-row">
                                         <img src="/assets/img/user.png" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
                                         <div class="pt-1">
                                             <p class="fw-bold mb-0 font-weight-bold">
-                                                ${person.no_telp}
+                                                ${e.customer.no_telp}
                                             </p>
-                                            <p class="small text-muted text-msg" numid="${person.id}">
+                                            <p class="small text-muted text-msg" attr-convid="${conversationId}">
                                                 ${subPart}
                                             </p>
                                         </div>
@@ -162,7 +161,7 @@
 
                     } else {
 
-                        $(`[numid=${person.id}]`).html(subPart);
+                        $(`[attr-convid=${conversationId}]`).html(subPart);
                     }
                 }
 
@@ -227,7 +226,7 @@
             html: `
                 <form method="POST" class="text-left pr-4 pl-4 eks-form" enctype="multipart/form-data" action="{{ route('media.whatsapp.eskalasi') }}">
                     @csrf
-                    <input type="hidden" name="number" value="${currNum}" />
+                    <input type="hidden" name="conv_id" value="${currConvId}" />
                     <div class="form-group mt-3">
                         <label> User </label>
                         <select class="form-control form-control-sm eks-select" name="user_id">
@@ -325,7 +324,7 @@
         let list = [];
 
         $.each($('.text-msg'), (x, y) => {
-            list.push(parseInt($(y).attr('numid')));
+            list.push(parseInt($(y).attr('attr-convid')));
         });
 
         return list;

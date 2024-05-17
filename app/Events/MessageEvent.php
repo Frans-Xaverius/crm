@@ -46,10 +46,9 @@ class MessageEvent implements ShouldBroadcast
         return [
             'content' => $this->passed,
             'body' => $data,
-            'person' => (object) [
-                'from' => $data->sender,
-                'to' => $data->receiver
-            ]
+            'conversation' => $data->conversation,
+            'chat' => $data->conversation->chat->reverse()->first(),
+            'customer' => $data->conversation->customer
         ];
     }
 }

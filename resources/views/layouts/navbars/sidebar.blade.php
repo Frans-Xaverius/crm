@@ -106,7 +106,14 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link text-blue" href="{{ route('laporan.log-panggilan') }}">
-                                   <i class="bi bi-telephone-inbound"></i> {{ __('Log Panggilan') }}
+                                   {{ __('Log Panggilan') }}
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link text-blue" href="{{ route('laporan.whatsapp') }}">
+                                   {{ __('Whats App') }}
                                 </a>
                             </li>
                         </ul>

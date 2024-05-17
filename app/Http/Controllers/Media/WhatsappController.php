@@ -38,22 +38,25 @@ class WhatsappController extends Controller
 
         $users = User::all();
         $tag = Tag::all();
+        $adminId = Customer::where([
+            'is_admin' => 1
+        ])->first()->id;
 
-        return view ('media.whatsapp.index', compact('conversation', 'users', 'tag'));
+        return view ('media.whatsapp.index', compact('conversation', 'users', 'tag', 'adminId'));
     }
 
 
     public function riwayat (Request $request) {
 
         $conversation = WAConversation::where([
-            'customer_id' => $request->get('id'),
-            'status' => 1
+            'id' => $request->get('id'),
         ])->first();
 
         $res = (object) [
             'chat' => $conversation->chat ?? [],
             'eks' => $conversation->user,
             'tag' => $conversation->tag->pluck('tags_id')->toArray() ?? [],
+            'customer' => $conversation->customer
         ];
 
         echo json_encode($res);
@@ -155,14 +158,8 @@ class WhatsappController extends Controller
 
         try {
             
-            $customer = Customer::where('no_telp', 'like', "%{$request->post('number')}%")->first();
-
-            if (empty($customer)) {
-                throw new Exception("User tidak ada", 1);
-            }
-        
             WAConversation::where([
-                'customer_id' => $customer->id
+                'id' => $request->post('conv_id')
             ])->update([
                 'user_id' => $request->post('user_id')
             ]);
@@ -177,20 +174,15 @@ class WhatsappController extends Controller
 
     public function setTag (Request $request) {
 
-        $conversation = WAConversation::where([
-            'customer_id' => $request->post('customer_id'),
-            'status' => 1
-        ])->first();
-
         WATag::where([
-            'wa_conversation_id' => $conversation->id
+            'wa_conversation_id' => $request->post('conv_id'),
         ])->delete();
 
         foreach ($request->post('tags') as $t) {
             
             WATag::create([
                 'tags_id' => $t,
-                'wa_conversation_id' => $conversation->id
+                'wa_conversation_id' => $request->post('conv_id'),
             ]);
         }
 
