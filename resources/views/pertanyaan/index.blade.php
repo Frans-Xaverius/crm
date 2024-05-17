@@ -11,7 +11,7 @@
                 <div class="col-md-5">
                     <div class="d-flex flex-row justify-content-end">
                         <div class="btn-group">
-                            <button class="btn btn-primary do-add"> Tambah </button>
+                            <button class="btn btn-sm btn-primary do-add"> Tambah </button>
                         </div>
                     </div>
                 </div>

@@ -16,9 +16,9 @@ class WAConversation extends Model
     }
 
 
-    public function tag () {
+    public function tags () {
 
-        return $this->hasMany(WATag::class, 'wa_conversation_id');
+        return $this->hasMany(WATag::class, 'wa_conversation_id')->with('detail');
     }
 
     public function customer () {

@@ -12,4 +12,9 @@ class WATag extends Model
     public $timestamps = false;
 
     protected $guarded = ['id'];
+
+    public function detail () {
+
+        return $this->belongsTo(Tag::class, 'tags_id', 'id');
+    }
 }
