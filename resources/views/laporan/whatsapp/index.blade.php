@@ -22,7 +22,9 @@
 					<td> {{ $c->tags->pluck('detail')->pluck('name') }} </td>
 					<td> {{ $c->rate }} </td>
 					<td>
-						<button class="btn btn-info btn-sm"><i class="bi bi-box-arrow-up-right"></i></button>
+						<a href="{{ route('laporan.whatsapp.chat') }}?id={{ $c->id }}" class="btn btn-info btn-sm do-riwayat">
+							<i class="bi bi-box-arrow-up-right"></i>
+						</a>
 					</td>
 				</tr>
 				@endforeach
