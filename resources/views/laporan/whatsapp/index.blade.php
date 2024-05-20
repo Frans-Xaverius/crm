@@ -3,6 +3,24 @@
 @section('content')
 
 <div class="container-fluid pb-1 pt-3 pt-md-1">
+	<div class="mt-3 card bg-white shadow" style="padding: 2.5%">
+		<div class="row mb-3">
+			<div class="col">
+				<div id="bar"></div>
+			</div>
+			<div class="col">
+				<div id="pie"></div>
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col">
+				<div id="line"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid pb-1 pt-3 pt-md-1">
 	<div class="mt-3 card bg-white shadow" style="padding: 2.5%;">
 		<table class="datatable table table-log">
 			<thead>

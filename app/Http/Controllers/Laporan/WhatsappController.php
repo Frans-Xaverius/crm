@@ -13,8 +13,13 @@ class WhatsappController extends Controller {
     public function index () {
 
         $conversation = WAConversation::all();
+        $tagsData = $conversation->pluck('tags')->flatten()->pluck('detail')->pluck('name')->toArray();
 
-        return view('laporan.whatsapp.index', compact('conversation'));
+        $dataChart = (object)[
+            'tags' => array_count_values($tagsData)
+        ];
+
+        return view('laporan.whatsapp.index', compact('conversation', 'dataChart'));
     }
 
     public function chat (Request $request) {
