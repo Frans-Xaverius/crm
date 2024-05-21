@@ -1,4 +1,3 @@
-@vite('resources/js/app.js')
 <script type="text/javascript">
 
     let currConvId = '';

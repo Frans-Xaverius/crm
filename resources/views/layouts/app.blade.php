@@ -51,6 +51,7 @@
 
     <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 
+    @vite('resources/js/app.js')
     <script type="text/javascript">
         
         const confLanguage = {
@@ -261,6 +262,36 @@
             })
         }, 1000);
     </script>
+
+    <script type="text/javascript">
+        
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+
+        $(document).ready(function(){
+            Echo.channel('message-channel').listen('MessageEvent', (e) => {
+                if (e.content.admin == 'false') {
+                    let textShow = e.chat.content ?? e.chat.file_support;
+                    Toast.fire({
+                        icon: "warning",
+                        title: e.customer.no_telp,
+                        text: textShow.length > 15 ? (textShow.substring(0,15) + "...") : textShow,
+                    });
+                }
+            });
+        });
+
+    </script>
+
 </body>
 
 </html>
