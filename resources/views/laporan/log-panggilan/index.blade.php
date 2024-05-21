@@ -29,7 +29,7 @@
 		</div>
 		<div class="d-flex flex-row justify-content-end">
 			<div class="btn-group mt-3">
-				<button class="btn btn-primary do-search"> Cari </button>
+				<button class="btn btn-primary do-search btn-sm"> Cari </button>
 			</div>
 		</div>
 	</div>

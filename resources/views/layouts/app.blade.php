@@ -67,7 +67,7 @@
             lengthMenu: "Filter per _MENU_",
             loadingRecords: "Loading...",
             processing: "",
-            search: "Cari:",
+            search: "Cari :",
             zeroRecords: "Data tidak ditemukan",
         };
 

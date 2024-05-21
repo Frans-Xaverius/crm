@@ -120,7 +120,7 @@
 	    },
 	    yAxis: {
 	        title: {
-	            text: 'Detik'
+	            text: 'Menit'
 	        }
 	    },
 	    plotOptions: {
