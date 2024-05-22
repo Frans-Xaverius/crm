@@ -48,7 +48,7 @@ class MessageEvent implements ShouldBroadcast
             'body' => $data,
             'conversation' => $data->conversation,
             'chat' => $data->conversation->chat->reverse()->first(),
-            'customer' => $data->conversation->customer
+            'customer' => $data->conversation->customer,
         ];
     }
 }

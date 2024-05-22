@@ -279,13 +279,20 @@
 
         $(document).ready(function(){
             Echo.channel('message-channel').listen('MessageEvent', (e) => {
-                if (e.content.admin == 'false') {
-                    let textShow = e.chat.content ?? e.chat.file_support;
-                    Toast.fire({
-                        icon: "warning",
-                        title: e.customer.no_telp,
-                        text: textShow.length > 15 ? (textShow.substring(0,15) + "...") : textShow,
-                    });
+
+                let userId = `{{ auth()->user()->id }}`;
+                let isAdmin = `{{ auth()->user()->detailRole->name == "Super Admin" ? true : false }}`;        
+                let show = (e.conversation.user_id == userId) || (isAdmin == 1);
+
+                if (show) {
+                    if (e.content.admin == 'false') {
+                        let textShow = e.chat.content ?? e.chat.file_support;
+                        Toast.fire({
+                            icon: "warning",
+                            title: e.customer.no_telp,
+                            text: textShow.length > 15 ? (textShow.substring(0,15) + "...") : textShow,
+                        });
+                    }
                 }
             });
         });
