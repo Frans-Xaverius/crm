@@ -55,7 +55,7 @@ class WhatsappController extends Controller
         $res = (object) [
             'chat' => $conversation->chat ?? [],
             'eks' => $conversation->user,
-            'tag' => !empty($conversation->tag) ? $conversation->tag->pluck('tags_id')->toArray() : [],
+            'tag' => !empty($conversation->tags) ? $conversation->tags->pluck('tags_id')->toArray() : [],
             'customer' => $conversation->customer
         ];
 

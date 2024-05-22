@@ -39,13 +39,6 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex">
-                            <div class="mt-2">
-                                <button class="btn btn-sm btn-success do-complete"> Akhiri Sesi </button>
-                            </div>
-                        </div>
-                    </div>
                     <div class="pt-3 pe-3 pr-3 mt-3" style="height: calc(100vh - 287px);overflow-y: scroll; padding: 2%;" id="room-detail">
                         
                     </div>
@@ -53,14 +46,10 @@
 
                 <div class="col-md-3">
                     <fieldset class="border border-dark">
-                        <legend class="w-auto" style="font-size: 20px; text-align: center;"> Tag dan Eskalasi </legend>
+                        <legend class="w-auto" style="font-size: 20px; text-align: center;"> Tag </legend>
                         <form class="p-3" method="POST" enctype="multipart/form-data" action="{{ route('media.whatsapp.set-tag') }}">
                             @csrf
                             <input type="hidden" class="input-tag" name="conv_id">
-                            <div class="form-group">
-                                <label> Penanggung Jawab </label>
-                                <input type="text" name="text-eks" class="form-control form-control-sm" disabled>
-                            </div>
                             <div class="form-group">
                                 <label> Tag </label>
                                 <select class="form-control tags" name="tags[]" multiple>
@@ -69,36 +58,54 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <button class="btn btn-primary btn-sm mb-3" style="float: right;"> Simpan Tag </button>
+                            <button class="btn btn-info btn-sm mb-3" style="float: right;"> Simpan Tag </button>
                         </form>
                     </fieldset>
+
+                    @if(auth()->user()->detailRole->name == "Super Admin")
+                        <fieldset class="border border-dark mt-3 mb-3">
+                            <legend class="w-auto" style="font-size: 20px; text-align: center;"> Eskalasi </legend>
+                            <form class="p-3" method="POST" enctype="multipart/form-data" action="{{ route('media.whatsapp.eskalasi') }}">
+                                @csrf
+                                <input type="hidden" name="conv_id" class="input-eks" />
+                                <div class="form-group mt-3">
+                                    <label> User </label>
+                                    <select class="form-control form-control-sm eks-select" name="user_id">
+                                        <option selected disabled> -- Pilih -- </option>
+                                        @foreach($users as $u)
+                                            <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <button class="btn btn-info btn-sm mb-3" style="float: right;"> Simpan Eskalasi </button>
+                            </form>
+                        </fieldset>
+                    @endif
+
+                    <div class="mt-5">
+                        <button class="btn btn-sm btn-danger do-complete" style="float: right;"> Akhiri Sesi </button>
+                    </div>
+
                 </div>
-
-                
-
             </div>
+
             <div class="text-muted d-flex justify-content-end align-items-center mt-5 mb-3">
                 <textarea class="form-control form-control-lg content-msg" placeholder="Tulis pesan..." rows="3"></textarea>
             </div>
-            <div class="d-flex justify-content-between align-items-center mt-1 mb-2 field-btn">
+
+            <div class="d-flex justify-content-right align-items-center mt-1 mb-2 field-btn" style="float: right;">
                 <div class="pt-1 d-flex">
                     <div class="btn-group">
-                        <button class="ms-4 btn btn-primary do-send">
-                            Kirim &nbsp; <i class="fas fa-paper-plane"></i>
-                        </button>
                         <button class="ms-4 btn btn-secondary do-attachment">
                             <i class="fa fa-file" aria-hidden="true"></i>
                         </button>
+                        <button class="ms-4 btn btn-primary do-send">
+                            Kirim &nbsp; <i class="fas fa-paper-plane"></i>
+                        </button>
                     </div>  
                 </div>
-                @if(auth()->user()->detailRole->name == "Super Admin")
-                    <div class="pt-1 d-flex">
-                        <button class="ms-4 btn btn-warning do-eksalasi">
-                            Eskalasi
-                        </button>
-                    </div>
-                @endif
             </div>
+
         </div>
     </div>
 </div>
