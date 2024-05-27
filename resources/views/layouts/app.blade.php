@@ -50,6 +50,7 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
     <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+    <script src='https://cdn.rawgit.com/admsev/jquery-play-sound/master/jquery.playSound.js'></script>
 
     @vite('resources/js/app.js')
     <script type="text/javascript">
@@ -285,16 +286,21 @@
                 let show = (e.conversation.user_id == userId) || (isAdmin == 1);
 
                 if (show) {
+
                     if (e.content.admin == 'false') {
+
                         let textShow = e.chat.content ?? e.chat.file_support;
                         Toast.fire({
                             icon: "warning",
                             title: e.customer.no_telp,
                             text: textShow.length > 15 ? (textShow.substring(0,15) + "...") : textShow,
                         });
+
+                        $.playSound(`{{ asset('assets/audio/notif.mp3') }}`);
                     }
                 }
             });
+
         });
 
     </script>

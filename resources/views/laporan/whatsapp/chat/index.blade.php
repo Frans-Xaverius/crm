@@ -9,7 +9,7 @@
 <div class="container-fluid">
 	<div class="card shadow">
 		<div class="selected-user">
-			<span> Customer : <span class="name"> {{ $conversation->customer->no_telp }} </span></span>
+			<span> Customer : <span class="name"> {{ $conversation->customer->no_telp }} - {{ $conversation->customer->nama ?? '' }}  </span></span>
 		</div>
 		<div class="row">
 			<div class="col">
