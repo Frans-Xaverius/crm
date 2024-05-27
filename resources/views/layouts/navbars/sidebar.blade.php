@@ -142,6 +142,11 @@
                                            {{ __('Tag') }}
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-blue" href="{{ route('manage.customer') }}">
+                                           {{ __('Customer') }}
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

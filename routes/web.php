@@ -13,6 +13,7 @@ use App\Http\Controllers\Laporan\WhatsappController as WhatsappLaporan;
 
 use App\Http\Controllers\Manage\UserController as ManageUser;
 use App\Http\Controllers\Manage\TagController as ManageTag;
+use App\Http\Controllers\Manage\CustomerController as ManageCustomer;
 
 Auth::routes();
 Route::get('/auth/callback', [Login::class, 'auth'])->name('ssoLoginSuccess');
@@ -62,6 +63,10 @@ Route::group(['middleware' => ['auth']], function(){
 				Route::post('/update', [ManageTag::class, 'update'])->name('manage.tag.update');
 				Route::post('/delete', [ManageTag::class, 'delete'])->name('manage.tag.delete');
 				Route::post('/add', [ManageTag::class, 'add'])->name('manage.tag.add');
+			});
+			Route::prefix('customer')->group(function(){
+				Route::get('/', [ManageCustomer::class, 'index'])->name('manage.customer');
+				Route::post('/update', [ManageCustomer::class, 'update'])->name('manage.customer.update');
 			});
 		});
 
