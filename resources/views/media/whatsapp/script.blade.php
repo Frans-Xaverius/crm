@@ -162,7 +162,7 @@
                                 <img src="/assets/img/user.png" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
                                 <div class="pt-1">
                                     <p class="fw-bold mb-0 font-weight-bold">
-                                        ${e.customer.no_telp}
+                                        ${e.customer.nama ?? e.customer.no_telp}
                                     </p>
                                     <p class="small text-muted text-msg" attr-convid="${conversationId}">
                                         ${subPart}

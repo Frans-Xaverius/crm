@@ -67,7 +67,7 @@
 			<tbody>
 				@foreach ($conversation as $c)
 				<tr>
-					<td> {{ $c->customer->no_telp }} </td>
+					<td> {{ $c->customer->nama ?? $c->customer->no_telp }} </td>
 					<td> {{ $c->user->name ?? 'Tidak ditentukan' }} </td>
 					<td> {{ $c->tags->pluck('detail')->pluck('name') }} </td>
 					<td> {{ $c->rate }} </td>

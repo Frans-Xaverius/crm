@@ -24,7 +24,7 @@
                                             <img src="/assets/img/user.png" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong mr-2" width="40">
                                             <div class="pt-1">
                                                 <p class="fw-bold mb-0 font-weight-bold">
-                                                    {{ $c->customer->no_telp }}
+                                                    {{ $c->customer->nama ?? $c->customer->no_telp }}
                                                 </p>
                                                 <p class="small text-muted text-msg" attr-convid="{{ $c->id }}">
                                                     {{ $c->chat->reverse()->first()->content ?? '' }}
