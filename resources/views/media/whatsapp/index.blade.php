@@ -13,7 +13,7 @@
 
                 <div class="col-md-3">
                     <div class="d-flex flex-row justify-content-start mb-3">
-                        <input type="text" class="form-control form-control-alternative" placeholder="Search chat" aria-label="Recipient's username" aria-describedby="basic-addon2" id="search-chat">
+                        <input type="text" class="form-control form-control-alternative search-customer" placeholder="Cari Customer">
                     </div>
                     <div data-mdb-perfect-scrollbar="true" style="position: relative; height: calc(100vh - 287px); overflow-y: scroll;">
                         <div class="list-group chat-queue" style="width: 100%" id="room">

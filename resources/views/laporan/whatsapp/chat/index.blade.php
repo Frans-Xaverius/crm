@@ -16,11 +16,11 @@
 				<div class="chat-container">
 					<ul class="chat-box chatContainerScroll">
 						@foreach ($conversation->chat as $c)
-							@if ($c->from == $adminId)
+							@if ($c->from != $adminId)
 								<li class="chat-left">
 									<div class="chat-avatar" style="text-align: center;">
 										<i class="bi bi-person-circle h1"></i>
-                                        <div class="chat-name"> Admin </div>
+                                        <div class="chat-name"> Customer </div>
 									</div>
 									<div class="chat-text">
 										 @if (empty($c->content))
@@ -53,7 +53,7 @@
 									</div>
 									<div class="chat-avatar" style="text-align: center;">
 										<i class="bi bi-person-circle h1"></i>
-                                        <div class="chat-name"> Customer </div>
+                                        <div class="chat-name"> Admin </div>
 									</div>
 								</li>
 							@endif

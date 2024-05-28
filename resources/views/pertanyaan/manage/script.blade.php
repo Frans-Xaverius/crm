@@ -88,7 +88,7 @@
 		let check = fieldJawaban();
 		let field = `
 			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="select-type" value="content" checked>
+				<input class="form-check-input" type="radio" name="select-type" value="content">
 			 	<label class="form-check-label"> Pertanyaan </label>
 			</div>
 			<div class="form-check form-check-inline">
@@ -124,6 +124,7 @@
 
           		$(function(){
           			$('.support').hide();
+          			Swal.disableButtons();
           		});
 
           		$('[name=select-type]').on('click', function(){
@@ -135,6 +136,7 @@
           			} else {
           				$('.support').hide();
           			}
+          			Swal.enableButtons();
           		});
 
           	},
