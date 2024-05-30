@@ -30,6 +30,9 @@
 		<div class="d-flex flex-row justify-content-end">
 			<div class="btn-group mt-3">
 				<button class="btn btn-primary do-search btn-sm"> Cari </button>
+				<a class="btn btn-secondary do-search btn-sm" href="{{ route('laporan.log-panggilan.unduh') }}">
+					<i class="bi bi-download"> </i>
+				</a>
 			</div>
 		</div>
 	</div>

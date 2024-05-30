@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Laporan;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Laporan\LaporanController;
 use Illuminate\Http\Request;
 use App\Models\Cdr;
 use Carbon\Carbon;
@@ -10,10 +10,7 @@ use App\Models\Pabx;
 use App\Helper\ChartCall;
 use Exception;
 
-class LogPanggilanController extends Controller {
-
-    private $phoneNumber = '0215085754';
-    public $monthData =  ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+class LogPanggilanController extends LaporanController {
 
     public function index (Request $request) {
 
@@ -58,6 +55,11 @@ class LogPanggilanController extends Controller {
 
             return redirect()->route('home')->with(['message' => [$e->getMessage(), 'danger']]);
         }
+    }
+
+    public function unduh () {
+
+        parent::render();
     }
 
 }

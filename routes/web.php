@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::prefix('laporan')->group(function(){
 		Route::prefix('log-panggilan')->group(function(){
 			Route::get('/', [LogPanggilan::class, 'index'])->name('laporan.log-panggilan');
+			Route::get('/unduh', [LogPanggilan::class, 'unduh'])->name('laporan.log-panggilan.unduh');
 		});
 		Route::prefix('whatsapp')->group(function(){
 			Route::get('/', [WhatsappLaporan::class, 'index'])->name('laporan.whatsapp');

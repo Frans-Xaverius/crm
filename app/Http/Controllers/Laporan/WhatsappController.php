@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Laporan;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Laporan\LaporanController;
 use Illuminate\Http\Request;
 
 use App\Models\WAConversation;
 use App\Models\Customer;
 use Carbon\Carbon;
 
-class WhatsappController extends Controller {
+class WhatsappController extends LaporanController {
 
-    public $monthData =  ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
     public function index (Request $request) {
 
         $month = $this->monthData;
