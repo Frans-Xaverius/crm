@@ -1,0 +1,19 @@
+https://api.instagram.com/oauth/authorize
+  ?client_id=1495806877693358
+  &redirect_uri=https://crm.local/media/instagram/auth
+  &scope=user_profile,user_media
+  &response_type=code
+
+AQCeGUuAWSmHyKoWFmdTeN9cT_cOGrGJ_V45MBTEThvpn9DEzfdETnT-i8CSaeXtifeR4JU-eU2Xf0GLgrTIWrwYjFqWeG9_LhTjPmFvPmTO8GRbi0RoTd-o7ZLM9Yza5Dz2yOnSQyIo0hWT5HCr0m8PL6F6rbFNXud2hz7z-MadEsMT1MXWOdlb9LfVnY-TH11xlfkkoX5xEkwwrnWRoiqjVWH_aiMdaYY07Hpd3RRzEg#_
+
+curl -X POST https://api.instagram.com/oauth/access_token -F client_id=1495806877693358 -F client_secret=8a7585ca0618f16bcde4f963342ef5b7 -F grant_type=authorization_code -F redirect_uri=https://crm.local/media/instagram/auth -F code=AQBUEHxbPx9t1J8PjNmmmxXtu62LOh8viUCW_sixtrCl-nhDP86qcKTy1HgKy4LSz2Hu6bSDh2sPYqfDDK07rwvS8y5fhQIwPsF-jHYXuHN8QpAza65s19Za5GcUIfCAa9fF6P7K9FdhKA68KqFhcckSSQHHcg9hbiZkE1nbWGApR9SU824vFb5HElVX09EtmO7jN3TIy5yTqYPpwv3bPbHTtrXbVreM0PrXrs13I6v1Mw
+
+
+
+{"access_token": "IGQWROZAGRCcFJ4VkdaMG5INHVTelQ3SUtQQnA3emtfV1o1dTZAnR1ZABQnpTOVNQeTZAYeDhSb3JzejFTcmVLYU9XV1JnWElLWVZAlOHphZAUhndDlVcHhXNURQUmZAoVTNfRzA0YU12SzRDQzR1RGRFWm8zWnJuaHNqOVN4ODRFOHNmS1h0ZAwZDZD", "user_id": 7509544259094948, "permissions": ["instagram_graph_user_profile", "instagram_graph_user_media"]}
+
+
+
+-----
+
+curl -i -X GET "https://graph.facebook.com/v20.0/134895793791914?fields=instagram_business_account&access_token=EAAXgZCXyZAenQBOZCS6x5U23APgDDYQT3iZCZBZBRH3VYsoebgpoJ46PZAZAQArOJLZCHT52AE8RzVXtLNRsKYdmt898S597TgE0mIZCJqXsK8IqtZCxm0988vZA5tO3ylwfYcgC2Vjwz4lBHgopuMiKdBYiH6f74YX9E5Jel0ZC1rokH9BOCYcWOi1hW1Yc9f0SL6SaSbGuqHFr9OCC1ig1sLzbcg4Xu3SoxEHLUUv3dIj2gpG5treeTMIJWHZChOz020"

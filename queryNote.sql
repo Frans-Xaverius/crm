@@ -78,4 +78,11 @@ CREATE TABLE `wa_tag` (
 ALTER TABLE `wa_conversation` ADD `user_id` INT NOT NULL DEFAULT '0';
 ALTER TABLE `customer` DROP `user_id`;
 
---
+-- (03/06/2024)
+
+CREATE TABLE `instagram_token` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `token` TEXT NULL,
+  `expired` DATETIME NULL,
+  PRIMARY KEY (`id`)
+);

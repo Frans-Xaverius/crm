@@ -94,6 +94,13 @@
                                 </a>
                             </li>
                         </ul>
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link text-blue" href="{{ route('media.instagram') }}">
+                                   {{ __('Instagram') }}
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </li>
                 <li class="nav-item">

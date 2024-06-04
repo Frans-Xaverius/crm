@@ -3,10 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController as Login;
 use App\Http\Controllers\HomeController as Home;
+
 use App\Http\Controllers\Pertanyaan\PertanyaanController as Pertanyaan;
 use App\Http\Controllers\Pertanyaan\ChildController as PertanyaanChild;
+
 use App\Http\Controllers\Media\WhatsappController as WhatsappMedia;
 use App\Http\Controllers\Media\PabxController as Pabx;
+use App\Http\Controllers\Media\InstagramController as InstagramMedia;
 
 use App\Http\Controllers\Laporan\LogPanggilanController as LogPanggilan;
 use App\Http\Controllers\Laporan\WhatsappController as WhatsappLaporan;
@@ -36,6 +39,11 @@ Route::group(['middleware' => ['auth']], function(){
 			Route::get('/', [Pabx::class, 'index'])->name('media.pabx');
 			Route::post('/submit', [Pabx::class, 'submit'])->name('media.pabx.submit');
 		}));
+
+		Route::prefix('instagram')->group(function(){
+			Route::get('/', [InstagramMedia::class, 'index'])->name('media.instagram')->withoutMiddleware('auth');
+			Route::get('/auth', [InstagramMedia::class, 'auth'])->name('media.instagram.auth');
+		});
 
 	}));
 
