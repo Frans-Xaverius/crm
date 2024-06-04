@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class InstagramController extends Controller {
 
     protected $access = null;
-    protected $refreshUrl = 'https://api.instagram.com/oauth/authorize?client_id=1495806877693358&redirect_uri=https://crm.local/media/instagram/auth&scope=user_profile,user_media&response_type=code';
+    protected $refreshUrl = 'https://api.instagram.com/oauth/authorize?client_id=882283413896676&redirect_uri=https://crm.local/media/instagram/auth&scope=user_profile,user_media&response_type=code';
     
     public function auth (Request $request) {
 
@@ -26,8 +26,8 @@ class InstagramController extends Controller {
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_POSTFIELDS => http_build_query([
-                'client_id' => '1495806877693358',
-                'client_secret' => '8a7585ca0618f16bcde4f963342ef5b7',
+                'client_id' => '882283413896676',
+                'client_secret' => '2348bf7db5790f5db1ea3576426b3372',
                 'grant_type' => 'authorization_code',
                 'redirect_uri' => 'https://crm.local/media/instagram/auth',
                 'code' => $request->get('code')
