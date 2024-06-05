@@ -31,7 +31,7 @@
 					<tr>
 						<td> {{ $k + 1 }} </td>
 						<td> {{ $d->id }} </td>
-						<td> {{ $d->caption }} </td>
+						<td> {{ $d->caption ?? '' }} </td>
 						<td> {{ $d->username }} </td>
 						<td>
 							<button class="btn btn-sm btn-info do-note">
