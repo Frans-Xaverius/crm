@@ -20,22 +20,24 @@
 				<thead>
 					<tr>
 						<th width="5%"> No </th>
-						<th> ID </th>
-						<th> Timestamp </th>
-						<th> Username </th>
-						<th width="8%"> Detail </th> 
+						<th> Tanggal </th>
+						<th> Caption </th>
+						<th> Komentar </th>
+						<th> Like </th>
+						<th width="8%"> URL </th> 
 					</tr>
 				</thead>
 				<tbody>
 					@foreach ($response->data as $k => $d)
 					<tr>
 						<td> {{ $k + 1 }} </td>
-						<td> {{ $d->id }} </td>
-						<td> {{ $d->caption ?? '' }} </td>
-						<td> {{ $d->username }} </td>
+						<td> {{ date("Y-m-d H:i:s", strtotime($d->timestamp)) }} </td>
+						<td> {{ $d->caption }} </td>
+						<td> {{ $d->likes_count }} </td>
+						<td> {{ $d->comments_count }} </td>
 						<td>
 							<button class="btn btn-sm btn-info do-note">
-								<i class="bi bi-pencil"></i>
+								<a class="bi bi-box-arrow-up-right" href="{{ $d->media_url }}"> </a>
 							</button>
 						</td>
 					</tr>

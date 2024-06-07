@@ -47,27 +47,88 @@ class InstagramController extends Controller {
         return redirect()->route('media.instagram');
     }
 
+    public function dummy () {
+
+        $json = [
+            (object) [
+                "id" => "17918920912340654",
+                "media_type" => "IMAGE",
+                "media_url" => "https://sconten...",
+                "owner" => [
+                    "id" => "17841405309211844"
+                ],
+                "timestamp" => "2019-09-26T22:36:43+0000",
+                "likes_count" => 5,
+                "comments_count" => 8,
+                "caption" => "Ini adalah caption"
+            ],
+            (object) [
+                "id" => "17918920912340654",
+                "media_type" => "IMAGE",
+                "media_url" => "https://sconten...",
+                "owner" => [
+                    "id" => "17841405309211844"
+                ],
+                "timestamp" => "2019-09-26T22:36:43+0000",
+                "likes_count" => 5,
+                "comments_count" => 8,
+                "caption" => "Ini adalah caption"
+            ],
+            (object) [
+                "id" => "17918920912340654",
+                "media_type" => "IMAGE",
+                "media_url" => "https://sconten...",
+                "owner" => [
+                    "id" => "17841405309211844"
+                ],
+                "timestamp" => "2019-09-26T22:36:43+0000",
+                "likes_count" => 5,
+                "comments_count" => 8,
+                "caption" => "Ini adalah caption"
+            ],
+            (object)  [
+                "id" => "17918920912340654",
+                "media_type" => "IMAGE",
+                "media_url" => "https://sconten...",
+                "owner" => [
+                    "id" => "17841405309211844"
+                ],
+                "timestamp" => "2019-09-26T22:36:43+0000",
+                "likes_count" => 5,
+                "comments_count" => 8,
+                "caption" => "Ini adalah caption"
+            ],
+
+        ];
+
+        return (object) [
+            'data' => (object)$json,
+            'paging' => []
+        ];
+    }
+
     public function index () {
 
         $refreshUrl = $this->refreshUrl;
         $token = InstagramToken::orderBy('expired', 'DESC')->first()->token;
 
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://graph.instagram.com/me/media?fields=id,media_type,media_url,username,caption&access_token={$token}",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_SSL_VERIFYPEER => false,
-        ));
+        // $curl = curl_init();
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => "https://graph.instagram.com/me/media?fields=id,media_type,media_url,username,caption&access_token={$token}",
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => '',
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 0,
+        //     CURLOPT_FOLLOWLOCATION => true,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => 'GET',
+        //     CURLOPT_SSL_VERIFYPEER => false,
+        // ));
 
-        $response = json_decode(curl_exec($curl));
-        curl_close($curl);
+        // $response = json_decode(curl_exec($curl));
+        // curl_close($curl);
 
+        $response = $this->dummy();
         return view ('media.instagram.index', compact('refreshUrl', 'response'));
     }
 }

@@ -57,9 +57,10 @@ class LogPanggilanController extends LaporanController {
         }
     }
 
-    public function unduh () {
+    public function unduh (Request $request) {
 
-        parent::render();
+        parent::render($request->post('month'), $request->post('year'));
+
     }
 
 }
