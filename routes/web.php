@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth']], function(){
 		Route::prefix('whatsapp')->group(function(){
 			Route::get('/', [WhatsappLaporan::class, 'index'])->name('laporan.whatsapp');
 			Route::get('/chat', [WhatsappLaporan::class, 'chat'])->name('laporan.whatsapp.chat');
+			Route::post('/unduh', [WhatsappLaporan::class, 'unduh'])->name('laporan.whatsapp.unduh');
 		});
 	});
 

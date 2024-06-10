@@ -41,4 +41,36 @@ class WhatsappController extends LaporanController {
 
         return view('laporan.whatsapp.chat.index', compact('conversation', 'adminId'));
     }
+
+    public function unduh (Request $request) {
+
+        $this->loadSpreadsheet('template/Template_Log Whatsapp.xlsx');
+        $month = $request->post('month');
+        $year = $request->post('year');
+
+        $conv = WAConversation::whereMonth('created_at', $month)
+                ->whereYear('created_at', $year)
+                ->get();
+
+        $ord = 2;
+        foreach ($conv as $k => $c) {
+
+            $arrTags = $c->tags->flatten()->pluck('detail')->pluck('name')->toArray();
+
+            $this->spreadsheet->getActiveSheet()->fromArray([
+                $k + 1,
+                date("d-m-Y", strtotime($c->created_at)),
+                $c->user->name ?? 'Tidak ditentukan',
+                $c->customer->no_telp ?? '-',
+                $c->customer->nama ?? '-',
+                implode(", ", $arrTags),
+                $c->chat->count(),
+                $c->rate,
+            ], NULL, "A{$ord}");
+
+            $ord++;
+        }
+
+         $this->render("Log Whatsapp_ {$month}-{$year}");
+    }
 }

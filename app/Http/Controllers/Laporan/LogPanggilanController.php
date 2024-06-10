@@ -59,8 +59,29 @@ class LogPanggilanController extends LaporanController {
 
     public function unduh (Request $request) {
 
-        parent::render($request->post('month'), $request->post('year'));
+        $this->loadSpreadsheet('template/Template_Log Panggilan.xlsx');
+        $month = $request->post('month');
+        $year = $request->post('year');
 
+        $pabx = Pabx::whereMonth('calldate', $month)
+                ->whereYear('calldate', $year)
+                ->get();
+
+        $ord = 2;
+        foreach ($pabx as $k => $c) {
+            $this->spreadsheet->getActiveSheet()->fromArray([
+                $k + 1,
+                date("d-m-Y", strtotime($c->calldate)),
+                date("h:i:s", strtotime($c->calldate)),
+                $c->number,
+                $c->respon,
+                $c->durasi,
+                strip_tags($c->catatan)
+            ], NULL, "A{$ord}");
+            $ord++;
+        }
+
+        $this->render("Log Panggilan_ {$month}-{$year}");
     }
 
 }

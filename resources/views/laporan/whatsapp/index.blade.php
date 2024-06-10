@@ -29,6 +29,12 @@
 		<div class="d-flex flex-row justify-content-end">
 			<div class="btn-group mt-3">
 				<button class="btn btn-primary do-search btn-sm"> Cari </button>
+				<form method="POST" action="{{ route('laporan.whatsapp.unduh') }}">
+					@csrf
+					<input type="hidden" name="month" value="{{ $currMonth }}">
+					<input type="hidden" name="year" value="{{ $currYear }}">
+					<button class="btn btn-secondary btn-sm"><i class="bi bi-download"> </i></button>
+				</form>
 			</div>
 		</div>
 	</div>
