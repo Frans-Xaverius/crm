@@ -106,6 +106,18 @@
             
         });
 
+        Echo.channel('qr-channel').listen('QrEvent', (e) => {            
+            Swal.fire({
+                title: "Scan untuk masuk",
+                html: `<canvas id="qrCanvas"> </canvas>`,
+                icon: "warning",
+                didOpen : () => {
+                    let currCanvas = document.getElementById("qrCanvas");
+                    qrcode.toCanvas(currCanvas, e.token);
+                }
+            });
+        });
+
     });
 
     function drawChat (e) {

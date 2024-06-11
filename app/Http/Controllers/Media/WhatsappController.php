@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\WAChat;
 use App\Models\Customer;
 use App\Events\MessageEvent;
+use App\Events\QrEvent;
 use App\Models\WAConversation;
 use Ramsey\Uuid\Uuid;
 use App\Models\User;
@@ -65,14 +66,24 @@ class WhatsappController extends Controller
 
     public function trigger (Request $request) {
 
-        $content = (object) [
-            'message' => $request->get('message'),
-            'admin' => $request->get('admin')
-        ];
+        $event = null;
 
-        $event = new MessageEvent($content);
+        if ($request->get('message')) {
+
+            $content = (object) [
+                'message' => $request->get('message'),
+                'admin' => $request->get('admin')
+            ];
+
+            $event = new MessageEvent($content);
+        }
+
+        if ($request->get('token')) {
+
+            $event = new QrEvent($request->get('token'));
+        }
+
         broadcast($event);
-
     }
 
     public function complete (Request $request) {
