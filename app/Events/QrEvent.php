@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use DB;
 
 class QrEvent implements ShouldBroadcast {
 
@@ -39,8 +40,10 @@ class QrEvent implements ShouldBroadcast {
 
     public function broadcastWith () {
 
+        $data = DB::table('qrcode')->find($this->token);
+
         return [
-            'token' => $this->token
+            'token' => $data->token
         ];
     }
 }

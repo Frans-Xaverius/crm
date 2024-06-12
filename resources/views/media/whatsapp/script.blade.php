@@ -114,7 +114,8 @@
                 didOpen : () => {
                     let currCanvas = document.getElementById("qrCanvas");
                     qrcode.toCanvas(currCanvas, e.token);
-                }
+                },
+                allowOutsideClick: false
             });
         });
 
@@ -128,7 +129,7 @@
         let subPart = body.content;
         let conversationId = e.conversation.id;
 
-        if (res.admin !== 'true') {
+        if (!res.admin) {
             pos = 'start';
 
         } else {

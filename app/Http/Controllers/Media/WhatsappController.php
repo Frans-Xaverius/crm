@@ -68,19 +68,19 @@ class WhatsappController extends Controller
 
         $event = null;
 
-        if ($request->get('message')) {
+        if ($request->message) {
 
             $content = (object) [
-                'message' => $request->get('message'),
-                'admin' => $request->get('admin')
+                'message' => $request->message,
+                'admin' => $request->admin
             ];
 
             $event = new MessageEvent($content);
         }
 
-        if ($request->get('token')) {
+        if ($request->token) {
 
-            $event = new QrEvent($request->get('token'));
+            $event = new QrEvent($request->token);
         }
 
         broadcast($event);
@@ -98,7 +98,6 @@ class WhatsappController extends Controller
         $url = $_ENV['URL_WA'];
         $msg = "Berapa rating yang diberikan pada layanan ini?";
         $requestUrl = "{$url}api";
-
 
         if (!empty($conversation)) {
             

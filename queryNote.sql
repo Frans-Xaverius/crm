@@ -86,3 +86,11 @@ CREATE TABLE `instagram_token` (
   `expired` DATETIME NULL,
   PRIMARY KEY (`id`)
 );
+
+-- (12/06/2024)
+
+CREATE TABLE `qrcode` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `token` TEXT NULL,
+  PRIMARY KEY (`id`)
+);
