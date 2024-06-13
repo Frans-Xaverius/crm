@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 
 use App\Models\WAChat;
 use App\Models\Customer;
-use App\Events\MessageEvent;
-use App\Events\QrEvent;
 use App\Models\WAConversation;
 use Ramsey\Uuid\Uuid;
 use App\Models\User;
@@ -62,28 +60,6 @@ class WhatsappController extends Controller
 
         echo json_encode($res);
 
-    }
-
-    public function trigger (Request $request) {
-
-        $event = null;
-
-        if ($request->message) {
-
-            $content = (object) [
-                'message' => $request->message,
-                'admin' => $request->admin
-            ];
-
-            $event = new MessageEvent($content);
-        }
-
-        if ($request->token) {
-
-            $event = new QrEvent($request->token);
-        }
-
-        broadcast($event);
     }
 
     public function complete (Request $request) {

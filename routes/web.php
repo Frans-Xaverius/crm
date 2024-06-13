@@ -25,6 +25,8 @@ Route::get('/auth/callback', [Login::class, 'auth'])->name('ssoLoginSuccess');
 
 Route::prefix('sockets')->group(function(){
 	Route::post('/ready', [Sockets::class, 'ready']);
+	Route::post('/qr', [Sockets::class, 'qr']);
+	Route::post('/message', [Sockets::class, 'message']);
 });
 
 Route::group(['middleware' => ['auth']], function(){
@@ -34,7 +36,6 @@ Route::group(['middleware' => ['auth']], function(){
 		Route::prefix('whatsapp')->group((function(){
 			Route::get('/', [WhatsappMedia::class, 'index'])->name('media.whatsapp');
 			Route::get('/riwayat', [WhatsappMedia::class, 'riwayat'])->name('media.whatsapp.riwayat');
-			Route::post('/trigger', [WhatsappMedia::class, 'trigger'])->name('media.whatsapp.trigger')->withoutMiddleware('auth');
 			Route::post('/complete', [WhatsappMedia::class, 'complete'])->name('media.whatsapp.complete');
 			Route::post('/store-attachment', [WhatsappMedia::class, 'storeAttachment'])->name('media.whatsapp.store-attachment');
 			Route::post('/eskalasi', [WhatsappMedia::class, 'eskalasi'])->name('media.whatsapp.eskalasi');
