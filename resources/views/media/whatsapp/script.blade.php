@@ -119,6 +119,13 @@
             });
         });
 
+        Echo.channel('ready-channel').listen('ReadyEvent', (e) => {
+            let res = e.data.client;
+            
+            $('.field-nomor').val(res.me.user);
+            $('.field-nama').val(res.pushname);
+        });
+
     });
 
     function drawChat (e) {

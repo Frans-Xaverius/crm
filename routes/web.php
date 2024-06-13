@@ -18,8 +18,14 @@ use App\Http\Controllers\Manage\UserController as ManageUser;
 use App\Http\Controllers\Manage\TagController as ManageTag;
 use App\Http\Controllers\Manage\CustomerController as ManageCustomer;
 
+use App\Helper\Sockets;
+
 Auth::routes();
 Route::get('/auth/callback', [Login::class, 'auth'])->name('ssoLoginSuccess');
+
+Route::prefix('sockets')->group(function(){
+	Route::post('/ready', [Sockets::class, 'ready']);
+});
 
 Route::group(['middleware' => ['auth']], function(){
 	Route::get('/', [Home::class, 'index'])->name('home');

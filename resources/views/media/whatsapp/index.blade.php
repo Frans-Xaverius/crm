@@ -45,7 +45,22 @@
                 </div>
 
                 <div class="col-md-3">
+
                     <fieldset class="border border-dark">
+                        <legend class="w-auto" style="font-size: 20px; text-align: center;"> Info Nomor </legend>
+                        <div class="p-3">
+                            <div class="form-group">
+                                <label> Nomor Telepon </label>
+                                <input type="text" class="form-control form-control-sm field-nomor" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label> Nama (Alias) </label>
+                                <input type="text" class="form-control form-control-sm field-nama" readonly>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="border border-dark mt-3 mb-3">
                         <legend class="w-auto" style="font-size: 20px; text-align: center;"> Tag </legend>
                         <form class="p-3" method="POST" enctype="multipart/form-data" action="{{ route('media.whatsapp.set-tag') }}">
                             @csrf
