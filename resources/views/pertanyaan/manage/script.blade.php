@@ -6,7 +6,7 @@
 
 	async function loadFile (dt) {
 
-		let url = "{{ $_ENV['URL_WA'] }}storage";
+		let url = "{{ env('URL_WA') }}storage";
 		let response = await fetch(`${url}?file=${dt}`);
 		let data = await response.blob();
 

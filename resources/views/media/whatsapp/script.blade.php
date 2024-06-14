@@ -5,7 +5,7 @@
     let currNum = 0;
 
     const date = new Date();
-    const mainUrl = `<?= $_ENV['URL_WA'] ?>`;
+    const mainUrl = `<?= env('URL_WA') ?>`;
 
     const $selectTag = $('.tags').select2();
     const $selectEks = $('.eks-select').select2();

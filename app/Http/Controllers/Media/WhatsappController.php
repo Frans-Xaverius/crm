@@ -71,7 +71,7 @@ class WhatsappController extends Controller
             'customer_id' => $customer->id
         ])->orderBy('created_at', 'DESC')->first();
 
-        $url = $_ENV['URL_WA'];
+        $url = env('URL_WA');
         $msg = "Berapa rating yang diberikan pada layanan ini?";
         $requestUrl = "{$url}api";
 
@@ -110,9 +110,9 @@ class WhatsappController extends Controller
         $caption = $request->post('caption');
         $file = $request->file('file');
         $nameFile = Uuid::uuid4().".".$file->getClientOriginalExtension();
-        $file->move($_ENV['PATH_CONVERSATION'], $nameFile);
+        $file->move(env('PATH_CONVERSATION'), $nameFile);
 
-        $url = $_ENV['URL_WA'];
+        $url = env('URL_WA');
         $msg = urlencode($nameFile);
         $type = $file->getClientMimeType();
         $requestUrl = "{$url}api";

@@ -23,7 +23,7 @@ class ChildController extends PertanyaanController {
             if ($file != NULL) {
 
                 $nameFile = Uuid::uuid4().".".$file->getClientOriginalExtension();
-                $file->move($_ENV['PATH_STORAGE'], $nameFile);
+                $file->move(env('PATH_STORAGE'), $nameFile);
                 $source['file_support'] = $nameFile;
                 $source['mime_type'] = $file->getClientMimeType();
 
@@ -61,7 +61,7 @@ class ChildController extends PertanyaanController {
         if ($file != NULL) {
 
             $nameFile = Uuid::uuid4().".".$file->getClientOriginalExtension();
-            $file->move($_ENV['PATH_STORAGE'], $nameFile);
+            $file->move(env('PATH_STORAGE'), $nameFile);
             $source['file_support'] = $nameFile;
             $source['mime_type'] = $file->getClientMimeType();
             

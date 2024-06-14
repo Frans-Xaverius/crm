@@ -24,7 +24,7 @@
 									</div>
 									<div class="chat-text">
 										 @if (empty($c->content))
-										 	<a download href="{{ $_ENV['URL_WA'].'storage?folder=conversation&file='.$c->file_support }}"> 
+										 	<a download href="{{ env('URL_WA').'storage?folder=conversation&file='.$c->file_support }}"> 
                                                 <i class="bi bi-download"> </i> {{ $c->file_support }}
                                             </a>
                                             {{ $c->caption ?? '' }}
@@ -43,7 +43,7 @@
 									</div>
 									<div class="chat-text">
 										 @if (empty($c->content))
-										 	<a download href="{{ $_ENV['URL_WA'].'storage?folder=conversation&file='.$c->file_support }}"> 
+										 	<a download href="{{ env('URL_WA').'storage?folder=conversation&file='.$c->file_support }}"> 
                                                 <i class="bi bi-download"> </i> {{ $c->file_support }}
                                             </a>
                                             {{ $c->caption ?? '' }}
