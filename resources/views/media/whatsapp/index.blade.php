@@ -6,7 +6,11 @@
 
 @section('content')
 
-<div class="container-fluid pb-1 pt-3 pt-md-1">
+<div class="container-fluid pb-1 pt-3 pt-md-1 blog-init">
+    <div class="alert alert-danger alert-msg" role="alert"> </div>
+</div>
+
+<div class="container-fluid pb-1 pt-3 pt-md-1 blog-chat">
     <div class="card mt-3 mb-5 p-2">
         <div class="card-body">
             <div class="row">
@@ -47,15 +51,15 @@
                 <div class="col-md-3">
 
                     <fieldset class="border border-dark">
-                        <legend class="w-auto" style="font-size: 20px; text-align: center;"> Info Nomor </legend>
+                        <legend class="w-auto" style="font-size: 20px; text-align: center;"> Akun Tertaut </legend>
                         <div class="p-3">
                             <div class="form-group">
                                 <label> Nomor Telepon </label>
-                                <input type="text" class="form-control form-control-sm field-nomor" readonly>
+                                <input type="text" class="form-control form-control-sm field-nomor" value="{{ $admin->no_telp ?? '' }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label> Nama (Alias) </label>
-                                <input type="text" class="form-control form-control-sm field-nama" readonly>
+                                <input type="text" class="form-control form-control-sm field-nama" value="{{ $admin->nama ?? '' }}" readonly>
                             </div>
                         </div>
                     </fieldset>

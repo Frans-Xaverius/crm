@@ -37,11 +37,11 @@ class WhatsappController extends Controller
 
         $users = User::all();
         $tag = Tag::all();
-        $adminId = Customer::where([
+        $admin = Customer::where([
             'is_admin' => 1
-        ])->first()->id;
+        ])->first();
 
-        return view ('media.whatsapp.index', compact('conversation', 'users', 'tag', 'adminId'));
+        return view ('media.whatsapp.index', compact('conversation', 'users', 'tag', 'admin'));
     }
 
 

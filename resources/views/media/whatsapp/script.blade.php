@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
     let currConvId = '';
-    let adminId = `{{ $adminId }}`;
+    let adminId = `{{ $admin->id ?? 0 }}`;
     let currNum = 0;
 
     const date = new Date();
@@ -89,9 +89,23 @@
     $(document).ready(function(){
 
         if ($('.list-customer').length > 0) {
+
             $('.list-customer')[0].click();
+
         } else {
+
             $('button').prop('disabled', true);
+        }
+
+        if (adminId == 0) {
+
+            $('.blog-chat').hide();
+            $('.alert-msg').html('Mohon untuk login whatsapp terlebih dahulu');
+
+        } else {
+
+            $('.blog-chat').show();
+            $('.blog-init').hide();
         }
 
         Echo.channel('message-channel').listen('MessageEvent', (e) => {
@@ -124,6 +138,12 @@
             
             $('.field-nomor').val(res.me.user);
             $('.field-nama').val(res.pushname);
+
+            Swal.fire({
+                title: "Berhasil",
+                text: "Login berhasil",
+                icon: "success"
+            });
         });
 
     });
