@@ -6,11 +6,19 @@
 
 @section('content')
 
-<div class="container-fluid pb-1 pt-3 pt-md-1 blog-init">
-    <div class="alert alert-danger alert-msg" role="alert"> </div>
+<div class="container-fluid pb-1 pt-3 pt-md-1">
+    <div class="card mt-3 mb-5 p-2">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="btn btn-sm btn-primary do-start"> Mulai Percakapan </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="container-fluid pb-1 pt-3 pt-md-1 blog-chat">
+<div class="container-fluid pb-1 pt-3 pt-md-1 section-chat">
     <div class="card mt-3 mb-5 p-2">
         <div class="card-body">
             <div class="row">

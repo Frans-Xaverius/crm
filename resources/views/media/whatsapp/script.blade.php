@@ -88,6 +88,8 @@
 
     $(document).ready(function(){
 
+        $('.section-chat').hide();
+
         if ($('.list-customer').length > 0) {
 
             $('.list-customer')[0].click();
@@ -95,17 +97,6 @@
         } else {
 
             $('button').prop('disabled', true);
-        }
-
-        if (adminId == 0) {
-
-            $('.blog-chat').hide();
-            $('.alert-msg').html('Mohon untuk login whatsapp terlebih dahulu');
-
-        } else {
-
-            $('.blog-chat').show();
-            $('.blog-init').hide();
         }
 
         Echo.channel('message-channel').listen('MessageEvent', (e) => {
@@ -129,11 +120,13 @@
                     let currCanvas = document.getElementById("qrCanvas");
                     qrcode.toCanvas(currCanvas, e.token);
                 },
+                showConfirmButton: false,
                 allowOutsideClick: false
             });
         });
 
         Echo.channel('ready-channel').listen('ReadyEvent', (e) => {
+
             let res = e.data.client;
             
             $('.field-nomor').val(res.me.user);
@@ -143,7 +136,10 @@
                 title: "Berhasil",
                 text: "Login berhasil",
                 icon: "success"
+            }).then(() => {
+                $('.section-chat').show();
             });
+
         });
 
     });
@@ -240,6 +236,28 @@
         });
 
         $('.content-msg').val('');
+
+    });
+
+    $('.do-start').on('click', function(){
+
+        $.ajax({
+            method: "POST",
+            url: `${mainUrl}api/init`,
+            beforeSend: () => {
+                $('.section-chat').hide();
+                Swal.fire({
+                    title: "Mohon menunggu",
+                    text: "Sedang dalam proses masuk",
+                    icon: "warning",
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            },
+            success: (res) => {
+                console.log(res);
+            }
+        });
 
     });
 
