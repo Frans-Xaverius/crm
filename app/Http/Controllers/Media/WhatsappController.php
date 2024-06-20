@@ -73,7 +73,7 @@ class WhatsappController extends Controller
 
         $url = env('URL_WA');
         $msg = "Berapa rating yang diberikan pada layanan ini?";
-        $requestUrl = "{$url}api";
+        $requestUrl = "{$url}api/send-message";
 
         if (!empty($conversation)) {
             
@@ -115,7 +115,7 @@ class WhatsappController extends Controller
         $url = env('URL_WA');
         $msg = urlencode($nameFile);
         $type = $file->getClientMimeType();
-        $requestUrl = "{$url}api";
+        $requestUrl = "{$url}api/send-message";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $requestUrl);

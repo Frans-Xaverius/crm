@@ -229,7 +229,7 @@
 
         $.ajax({
             method: "POST",
-            url: `${mainUrl}api`,
+            url: `${mainUrl}api/send-message`,
             data: {
                 num: currNum,
                 msg: `${content}\n\n-${name}-`
